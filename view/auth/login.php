@@ -17,10 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // cek password
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if (password_verify($password, $result[0]["password"])) {
-                echo "<script>
-                        alert('Login Berhasil');
-                        document.location.href = 'index.php';
-                    </script>";
                 exit;
             }
         }

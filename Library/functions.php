@@ -2,6 +2,7 @@
 
 include_once "Database/koneksi.php";
 
+// Register
 function register($data)
 {
     global $pdo;
@@ -15,6 +16,7 @@ function register($data)
     ]);
 }
 
+// Update User
 function updateUser($id, $data)
 {
     global $pdo;
@@ -29,6 +31,7 @@ function updateUser($id, $data)
     ]);
 }
 
+// Delete User
 function deleteUser($id)
 {
     global $pdo;

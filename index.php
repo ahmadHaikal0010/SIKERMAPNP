@@ -10,6 +10,9 @@ if (isset($_GET["page"])) {
         case "home":
             include_once "view/home.php";
             break;
+        case "tambahAkun":
+            include_once "view/superAdmin/createUser.php";
+            break;
     }
 } else {
     include_once "view/home.php";
@@ -29,6 +32,7 @@ if (isset($_GET["page"])) {
     <a href="?page=home">Home</a>
     <a href="?page=register">Register</a>
     <a href="?page=login">Login</a>
+    <a href="?page=tambahAkun">Tambah Akun</a>
 </body>
 
 </html>
