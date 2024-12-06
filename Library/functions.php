@@ -38,3 +38,21 @@ function deleteUser($id)
     $stmt = $pdo->prepare("DELETE FROM tb_user WHERE id = :id");
     return $stmt->execute([":id" => $id]);
 }
+
+// Create Mitra
+function createMitra($data)
+{
+    global $pdo;
+    $stmt = $pdo->prepare("INSERT INTO tb_mitra (namaInstansi, namaPimpinan, alamatMitra, emailMitra, teleponMitra, bidangUsaha, websiteMitra, provinsi, kota) VALUES (:namaInstansi, :namaPimpinan, :alamatMitra, :emailMitra, :teleponMitra, :bidangUsaha, :websiteMitra, :provinsi, :kota)");
+    return $stmt->execute([
+        ":namaInstansi" => $data["namaInstansi"],
+        ":namaPimpinan" => $data["namaPimpinan"],
+        ":alamatMitra" => $data["alamatMitra"],
+        ":emailMitra" => $data["emailMitra"],
+        ":teleponMitra" => $data["teleponMitra"],
+        ":bidangUsaha" => $data["bidangUsaha"],
+        ":websiteMitra" => $data["websiteMitra"],
+        ":provinsi" => $data["provinsi"],
+        ":kota" => $data["kota"]
+    ]);
+}

@@ -35,9 +35,12 @@ global $pdo;
                 <td><?= $row["namaInstansi"] ?></td>
                 <td><?= $row["keterangan"] ?></td>
                 <td><?= $row["jurusan"] ?></td>
-                <td><?= $row["fileDokumen"] ?></td>
                 <td>
                     <a href=""><i class="btn btn-primary bi bi-eye"></i></a>
+                    <a href=""><i class="btn btn-success bi bi-cloud-download"></i></a>
+                </td>
+                <td>
+                    <a href=""><i class="btn btn-primary bi bi-list-ul"></i></a>
                     <a href=""><i class="btn btn-warning bi bi-pencil-square"></i></a>
                     <a href=""><i class="btn btn-danger bi bi-trash"></i></a>
                 </td>
