@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 include_once "../../Database/koneksi.php";
 
 global $pdo;
@@ -17,6 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // cek password
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if (password_verify($password, $result[0]["password"])) {
+                $_SESSION["username"] = $result[0]["username"];
+                $_SESSION["role"] = $result[0]["role"];
+                $_SESSION["login"] = true;
                 header("Location: ../../index.php");
                 exit;
             }
@@ -59,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <button type="submit" class="btn btn-primary w-100" name="submit">Login</button>
         </form>
         <div class="text-center mt-3">
-            <p>Don't have an account? <a href="#" class="text-decoration-none">Sign Up</a></p>
+            <p>Don't have an account? <a href="register.php" class="text-decoration-none">Sign Up</a></p>
         </div>
     </div>
     <!-- Bootstrap JS -->
