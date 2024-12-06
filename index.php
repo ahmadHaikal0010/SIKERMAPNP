@@ -19,7 +19,7 @@
         if (isset($_GET["page"])) {
             switch ($_GET["page"]) {
                 case "login":
-                    include_once "view/auth/login.php";
+                    header("Location: view/auth/login.php");
                     break;
                 case "register":
                     include_once "view/auth/register.php";
