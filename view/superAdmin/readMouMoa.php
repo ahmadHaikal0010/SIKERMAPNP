@@ -1,5 +1,6 @@
 <?php
 include_once "database/koneksi.php";
+
 global $pdo;
 ?>
 
@@ -41,8 +42,17 @@ global $pdo;
                 </td>
                 <td>
                     <a href=""><i class="btn btn-primary bi bi-list-ul"></i></a>
-                    <a href=""><i class="btn btn-warning bi bi-pencil-square"></i></a>
-                    <a href=""><i class="btn btn-danger bi bi-trash"></i></a>
+                    <?php
+                    // Mengecek Level User
+                    if ($_SESSION["login"] === true) :
+                        if ($_SESSION["role"] === "admin" || $_SESSION["role"] === "super admin") :
+                    ?>
+                        <a href=""><i class="btn btn-warning bi bi-pencil-square"></i></a>
+                        <a href=""><i class="btn btn-danger bi bi-trash"></i></a>
+                    <?php
+                        endif;
+                    endif;
+                    ?>
                 </td>
             </tr>
 

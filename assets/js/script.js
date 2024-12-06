@@ -6,3 +6,14 @@ $(document).ready(function () {
     ordering: true, // Aktifkan fitur pengurutan
   });
 });
+
+
+// SideBar
+// $(document).ready(function () {
+//   $('#toggleSidebar').click(function () {
+//       $('#sidebar').toggleClass('collapsed');
+//       $('#header').toggleClass('collapsed');
+//       $('#mainContent').toggleClass('collapsed');
+//       $('#footer').toggleClass('collapsed');
+//   });
+// });

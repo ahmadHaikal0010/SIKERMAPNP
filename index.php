@@ -17,20 +17,95 @@ if (!isset($_SESSION["login"])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- CSS DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- CSS External -->
+    <link rel="stylesheet" href="assets/css/style.css">
     <title>SIKERMA PNP</title>
 </head>
 
 <body>
-    <div class="container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div>
+            <h4>SIKERMA</h4>
+            <a href="?page=home"><i class="bi bi-house-door me-2"></i> Home</a>
+            <?php
+            if ($_SESSION["login"]) {
+                if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
+            ?>
+                    <a href="?action=list_mou_moa"><i class="bi bi-folder me-2"></i> Data MOU/MOA</a>
+                    <a href="?action=list_mitra"><i class="bi bi-briefcase me-2"></i> Data Mitra</a>
+                    <?php if ($_SESSION["role"] === "super admin"): ?>
+                        <a href="?action="><i class="bi bi-person-lines-fill me-2"></i> Data Akun</a>
+                    <?php endif; ?>
+                    <hr>
+                    <a href="view/auth/logout.php" onclick="confirm('Apakah anda yakin mau keluar?')"><i class="bi bi-box-arrow-right me-2"></i> Logout</a>
+                <?php
+                }
+            } else {
+                ?>
+                <a href="?page="><i class="bi bi-folder me-2"></i> Data MOU/MOA</a>
+                <hr>
+                <a href="?page=login"><i class="bi bi-box-arrow-in-left me-2"></i> Login</a>
+            <?php } ?>
+        </div>
+        <div class="help-box">
+            <h5>Need Help?</h5>
+            <p>Contact support:</p>
+            <a href="mailto:support@example.com">support@example.com</a>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+        <h4>Dashboard</h4>
+        <!-- <div class="search-bar">
+            <input type="text" class="form-control" placeholder="Cari...">
+            <i class="bi bi-search"></i>
+        </div> -->
         <?php
-        if (isset($_GET["page"])) {
-            if ($_GET["page"] == "login") {
-                header("Location: view/auth/login.php");
-            }
-            if ($_GET["page"] == "register") {
-                header("Location: view/auth/register.php");
+        if ($_SESSION["login"]) {
+            if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
+        ?>
+                <div class="profile-info">
+                    <i class="bi bi-person-circle fs-3"></i>
+                    <div>
+                        <span><?= $_SESSION["username"] ?></span><br>
+                        <small><?= $_SESSION["role"] ?></small>
+                    </div>
+                </div>
+        <?php
             }
         }
+        ?>
+    </div>
+
+    <!-- Main Content -->
+    <div class="Main">
+        <?php
+        // Mengecek Navigasi
+        if (isset($_GET["page"])) {
+            switch ($_GET["page"]) {
+                case "login":
+                    header("Location: view/auth/login.php");
+                    break;
+                case "register":
+                    header("Location: view/auth/register.php");
+                    break;
+                case "home":
+                    include_once "view/home.php";
+                    break;
+                case "list_mou_moa":
+                    include_once "view/general/readMouMoa.php";
+                    break;
+                default:
+                    include_once "view/home.php";
+            }
+        }
+
+        // Mengecek Level User
         if ($_SESSION["login"]) {
             if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
                 if (isset($_GET["action"])) {
@@ -53,34 +128,16 @@ if (!isset($_SESSION["login"])) {
                             include_once "view/superAdmin/createMitra.php";
                             break;
                     }
-                } 
+                }
             }
-        } else {
-            include_once "view/home.php";
         }
         ?>
-
-        <a href="?page=home">Home</a>
-        <a href="?page=register">Register</a>
-        <a href="?page=login">Login</a>
-
-        <?php
-        if ($_SESSION["login"] === true):
-            if ($_SESSION["role"] === "admin" || $_SESSION["role"] === "super admin"):
-        ?>
-                <?php if ($_SESSION["role"] === "super admin"): ?>
-                    <a href="?action=tambahAkun">Tambah Akun</a>
-                <?php endif; ?>
-                <a href="?action=list_mou_moa">List MOU MOA</a>
-                <a href="?action=list_mitra">List Mitra</a>
-                <a href="?action=tambah_mou_moa">Tambah MOU MOA</a>
-                <a href="?action=tambah_mitra">Tambah Mitra</a>
-                <a href="view/auth/logout.php">Logout</a>
-        <?php
-            endif;
-        endif;
-        ?>
     </div>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2024 SIKERMA | All rights reserved.
+    </footer>
 
     <!-- JS Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
