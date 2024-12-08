@@ -17,6 +17,8 @@ if (!isset($_SESSION["login"])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- CSS DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+    <!-- CSS DataTables Responsive-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <!-- CSS External -->
@@ -60,7 +62,7 @@ if (!isset($_SESSION["login"])) {
 
     <!-- Header -->
     <div class="header">
-        <h4>Dashboard</h4>
+        <h4>Selamat Datang</h4>
         <!-- <div class="search-bar">
             <input type="text" class="form-control" placeholder="Cari...">
             <i class="bi bi-search"></i>
@@ -112,20 +114,20 @@ if (!isset($_SESSION["login"])) {
                     switch ($_GET["action"]) {
                         case "tambahAkun":
                             if ($_SESSION["role"] === "super admin") {
-                                include_once "view/superAdmin/createUser.php";
+                                include_once "view/admin/createUser.php";
                             }
                             break;
                         case "list_mou_moa":
-                            include_once "view/superAdmin/readMouMoa.php";
+                            include_once "view/admin/readMouMoa.php";
                             break;
                         case "list_mitra":
-                            include_once "view/superAdmin/readMitra.php";
+                            include_once "view/admin/readMitra.php";
                             break;
                         case "tambah_mou_moa":
-                            include_once "view/superAdmin/createMouMoa.php";
+                            include_once "view/admin/createMouMoa.php";
                             break;
                         case "tambah_mitra":
-                            include_once "view/superAdmin/createMitra.php";
+                            include_once "view/admin/createMitra.php";
                             break;
                     }
                 }
@@ -145,6 +147,8 @@ if (!isset($_SESSION["login"])) {
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <!-- JS DataTables -->
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+    <!-- JS DataTables Responsive -->
+    <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
     <!-- JS External -->
     <script src="assets/js/script.js"></script>
 </body>

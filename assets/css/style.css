@@ -121,6 +121,17 @@ footer {
     font-size: 14px;
 }
 
+.table-responsive {
+    overflow-x: auto;
+}
+
+.tombol-aksi {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    display: flex;
+    justify-content: center; /* Atur posisi tombol: center, start, end, space-between, etc */
+    gap: 8px; /* Jarak antar tombol */
+}
 
 
 /* Main */
@@ -128,6 +139,10 @@ footer {
     margin-left: 190px;
     padding: 24px;
     padding-bottom: 100px;
+}
+
+.button-no-border {
+    border: none;
 }
 
 

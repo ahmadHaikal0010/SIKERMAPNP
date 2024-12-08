@@ -66,6 +66,10 @@ function createMouMoa($data)
 {
     global $pdo;
 
+    $tanggal1 = new DateTime($data["awalKerjasama"]);
+    $tanggla2 = new DateTime($data["akhirKerjasama"]);
+    $jangkaWaktu = $tanggal1->diff($tanggla2);
+
     // upload file
     $fileName = $_FILES["fileDokumen"]["name"];
     $fileDirektori = "uploads/documents/";
@@ -85,10 +89,11 @@ function createMouMoa($data)
 
     $jurusan = implode(",", $data["jurusan"]);
 
-    $stmt = $pdo->prepare("INSERT INTO tb_mou_moa (nomorMouMoa, jenisKerjasama, awalKerjasama, akhirKerjasama, keterangan, tindakan, jurusan, topik_kerjasama, fileDokumen,  mitra_idMitra, user_idAkun) VALUES (:nomorMouMoa, :jenisKerjasama, :awalKerjasama, :akhirKerjasama, :keterangan, :tindakan, :jurusan, :topik_kerjasama, :fileDokumen,  :mitra_idMitra, :user_idAkun)");
+    $stmt = $pdo->prepare("INSERT INTO tb_mou_moa (nomorMouMoa, jenisKerjasama, jangkaWaktu, awalKerjasama, akhirKerjasama, keterangan, tindakan, jurusan, topik_kerjasama, fileDokumen,  mitra_idMitra, user_idAkun) VALUES (:nomorMouMoa, :jenisKerjasama, :jangkaWaktu, :awalKerjasama, :akhirKerjasama, :keterangan, :tindakan, :jurusan, :topik_kerjasama, :fileDokumen,  :mitra_idMitra, :user_idAkun)");
     return $stmt->execute([
         ":nomorMouMoa" => $data["nomorMou"],
         ":jenisKerjasama" => $data["jenisKerjasama"],
+        ":jangkaWaktu" =>  $jangkaWaktu->y,
         ":awalKerjasama" => $data["awalKerjasama"],
         ":akhirKerjasama" => $data["akhirKerjasama"],
         ":keterangan" => $data["keterangan"],

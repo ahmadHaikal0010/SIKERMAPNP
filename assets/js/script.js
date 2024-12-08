@@ -4,16 +4,8 @@ $(document).ready(function () {
     paging: true, // Aktifkan pagination
     searching: true, // Aktifkan fitur pencarian
     ordering: true, // Aktifkan fitur pengurutan
+    responsive: true,
+    lengthChange: true,
   });
+  
 });
-
-
-// SideBar
-// $(document).ready(function () {
-//   $('#toggleSidebar').click(function () {
-//       $('#sidebar').toggleClass('collapsed');
-//       $('#header').toggleClass('collapsed');
-//       $('#mainContent').toggleClass('collapsed');
-//       $('#footer').toggleClass('collapsed');
-//   });
-// });
