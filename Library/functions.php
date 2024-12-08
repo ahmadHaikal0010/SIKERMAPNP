@@ -61,6 +61,36 @@ function createMitra($data)
     ]);
 }
 
+// Update Mitra
+function updateMitra($id, $data)
+{
+    global $pdo;
+
+    $stmt = $pdo->prepare("UPDATE tb_mitra SET 
+    namaInstansi = :namaInstansi,
+    namaPimpinan = :namaPimpinan,
+    alamatMitra = :alamatMitra,
+    emailMitra = :emailMitra,
+    teleponMitra = :teleponMitra,
+    bidangUsaha = :bidangUsaha,
+    websiteMitra = :websiteMitra,
+    provinsi = :provinsi,
+    kota = :kota
+    WHERE idMitra = :idMitra");
+    return $stmt->execute([
+        ":namaInstansi" => $data["namaInstansi"],
+        ":namaPimpinan" => $data["namaPimpinan"],
+        ":alamatMitra" => $data["alamatMitra"],
+        ":emailMitra" => $data["emailMitra"],
+        ":teleponMitra" => $data["teleponMitra"],
+        ":bidangUsaha" => $data["bidangUsaha"],
+        ":websiteMitra" => $data["websiteMitra"],
+        ":provinsi" => $data["provinsi"],
+        ":kota" => $data["kota"],
+        ":idMitra" => $id
+    ]);
+}
+
 // Delete Mitra
 function deleteMitra($id)
 {
@@ -115,15 +145,6 @@ function createMouMoa($data)
     ]);
 }
 
-// Delete MOU/MOA
-function deleteMouMoa($id)
-{
-    global $pdo;
-
-    $stmt = $pdo->prepare("DELETE FROM tb_mou_moa WHERE idMouMoa = :id");
-    return $stmt->execute([":id" => $id]);
-}
-
 // Update MOU/MOA
 function updateMouMoa($id, $data) {
     global $pdo;
@@ -163,7 +184,8 @@ function updateMouMoa($id, $data) {
     topik_kerjasama = :topik_kerjasama,
     fileDokumen = :fileDokumen,
     mitra_idMitra = :mitra_idMitra,
-    user_idAkun = :user_idAkun");
+    user_idAkun = :user_idAkun
+    WHERE idMouMoa = :idMouMoa");
     return $stmt->execute([
         ":nomorMouMoa" => $data["nomorMou"],
         ":jenisKerjasama" => $data["jenisKerjasama"],
@@ -176,6 +198,16 @@ function updateMouMoa($id, $data) {
         ":topik_kerjasama" => $data["topik_kerjasama"],
         ":fileDokumen" => $namaFileBaru,
         ":mitra_idMitra" => $data["mitra_idMitra"],
-        ":user_idAkun" => $data["user_idAkun"]
+        ":user_idAkun" => $data["user_idAkun"],
+        ":idMouMoa" => $id
     ]);
+}
+
+// Delete MOU/MOA
+function deleteMouMoa($id)
+{
+    global $pdo;
+
+    $stmt = $pdo->prepare("DELETE FROM tb_mou_moa WHERE idMouMoa = :id");
+    return $stmt->execute([":id" => $id]);
 }

@@ -125,6 +125,7 @@ footer {
 }
 
 .tombol-aksi {
+    background-color: transparent !important;
     box-shadow: none !important;
     display: flex;
     justify-content: center; /* Atur posisi tombol: center, start, end, space-between, etc */

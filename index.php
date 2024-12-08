@@ -132,6 +132,9 @@ if (!isset($_SESSION["login"])) {
                         case "update_mou_moa":
                             include_once "view/admin/updateMouMoa.php";
                             break;
+                        case "update_mitra":
+                            include_once "view/admin/updateMitra.php";
+                            break;
                     }
                 }
             }

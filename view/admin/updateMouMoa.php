@@ -21,7 +21,6 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
     }
 }
 
-$i = 1;
 try {
     $stmt = $pdo->prepare("SELECT * FROM tb_mou_moa WHERE idMouMoa = :idMouMoa");
     $stmt->execute([":idMouMoa" => $_GET["idMouMoa"]]);
