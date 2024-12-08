@@ -100,3 +100,12 @@ function createMouMoa($data)
         ":user_idAkun" => $data["user_idAkun"]
     ]);
 }
+
+// Delete MOU/MOA
+function deleteMouMoa($id)
+{
+    global $pdo;
+
+    $stmt = $pdo->prepare("DELETE FROM tb_mou_moa WHERE idMouMoa = :id");
+    return $stmt->execute([":id" => $id]);
+}

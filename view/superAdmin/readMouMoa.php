@@ -1,8 +1,26 @@
 <?php
 
-include_once "database/koneksi.php";
+include_once "Library/functions.php";
 
 global $pdo;
+
+if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_POST["delete"])) {
+            if (deleteMouMoa($_POST["delete"])) {
+                echo "<script>
+                alert('Data berhasil dihapus');
+                document.location.href = 'index.php?action=list_mou_moa';
+                </script>";
+            } else {
+                echo "<script>
+                alert('Data gagal dihapus');
+                document.location.href = 'index.php?action=list_mou_moa';
+                </script>";
+            }
+        }
+    }
+}
 ?>
 
 <a href="?action=tambah_mou_moa" class="btn btn-primary"><i class="bi bi-plus-circle me-2"></i> Tambah</a>
@@ -42,18 +60,11 @@ global $pdo;
                     <a href=""><i class="btn btn-success bi bi-cloud-download"></i></a>
                 </td>
                 <td>
-                    <a href=""><i class="btn btn-primary bi bi-list-ul"></i></a>
-                    <?php
-                    // Mengecek Level User
-                    if ($_SESSION["login"] === true) :
-                        if ($_SESSION["role"] === "admin" || $_SESSION["role"] === "super admin") :
-                    ?>
+                    <form action="" method="post">
+                        <a href=""><i class="btn btn-primary bi bi-list-ul"></i></a>
                         <a href=""><i class="btn btn-warning bi bi-pencil-square"></i></a>
-                        <a href=""><i class="btn btn-danger bi bi-trash"></i></a>
-                    <?php
-                        endif;
-                    endif;
-                    ?>
+                        <button name="delete" value="<?= $row["idMouMoa"] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus?')"><i class="btn btn-danger bi bi-trash"></i></button>
+                    </form>
                 </td>
             </tr>
 
