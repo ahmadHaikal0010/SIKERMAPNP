@@ -61,6 +61,15 @@ function createMitra($data)
     ]);
 }
 
+// Delete Mitra
+function deleteMitra($id)
+{
+    global $pdo;
+
+    $stmt = $pdo->prepare("DELETE FROM tb_mitra WHERE idMitra = :id");
+    return $stmt->execute([":id" => $id]);
+}
+
 // Create MOU/MOA
 function createMouMoa($data)
 {
