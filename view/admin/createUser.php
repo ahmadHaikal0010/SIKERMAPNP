@@ -8,7 +8,7 @@ global $pdo;
 if ($_SESSION["role"] === "super admin") {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST["submit"])) {
-            if (register($_POST)) {
+            if (createUser($_POST)) {
                 echo "<script>
                 alert('Data berhasil ditambahkan');
                 document.location.href = 'index.php';
@@ -16,7 +16,7 @@ if ($_SESSION["role"] === "super admin") {
             } else {
                 echo "<script>
                 alert('Data gagal ditambahkan');
-                document.location.href = 'index.php';
+                document.location.href = 'index.php?action=tambah_user';
                 </script>";
             }
         }
@@ -25,21 +25,45 @@ if ($_SESSION["role"] === "super admin") {
 
 ?>
 
-<h1>Tambah Akun</h1>
-<form action="" method="post">
-    <label for="nama">Nama : </label>
-    <input type="text" name="namaUser" id="nama">
-    <label for="email">Email : </label>
-    <input type="email" name="emailUser" id="email">
-    <label for="username">Username : </label>
-    <input type="text" name="username" id="username">
-    <label for="password">Password : </label>
-    <input type="password" name="password" id="password">
-    <label for="role">Role :</label>
-    <select name="role" id="role">
-        <option value="admin">Admin</option>
-        <option value="jurusan">Jurusan</option>
-        <option value="mitra">Mitra</option>
-    </select>
-    <button type="submit" name="submit">Register</button>
-</form>
+<div class="form-container">
+    <h2 class="text-center mb-4">Tambah Data User</h2>
+    <div class="form-card mx-auto col-md-8">
+        <form action="" method="POST" enctype="multipart/form-data">
+            <!-- nama user -->
+            <div class="mb-4">
+                <label for="namaUser" class="form-label">Nama User</label>
+                <input type="text" id="namaUser" name="namaUser" class="form-control" required>
+            </div>
+            <!-- email user -->
+            <div class="mb-4">
+                <label for="emailUser" class="form-label">Email User</label>
+                <input type="email" id="emailUser" name="emailUser" class="form-control" required>
+            </div>
+            <!-- username -->
+            <div class="mb-4">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" id="username" name="username" class="form-control" required>
+            </div>
+            <!-- password -->
+            <div class="mb-4">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            <!-- confirm password -->
+            <div class="mb-4">
+                <label for="password2" class="form-label">Confirm Password</label>
+                <input type="password" id="password2" name="password2" class="form-control" required>
+            </div>
+            <!-- role -->
+            <div class="mb-5">
+                <label for="mitra" class="form-label">Role</label>
+                <select name="role" id="role" class="form-select">
+                    <option value="" selected disabled>--role--</option>
+                    <option value="admin">Admin</option>
+                    <option value="jurusan">Jurusan</option>
+                </select>
+            </div>
+            <button type="submit" name="submit" class="btn btn-primary w-30">Submit</button>
+        </form>
+    </div>
+</div>

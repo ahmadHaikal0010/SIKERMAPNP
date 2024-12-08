@@ -5,22 +5,21 @@ include_once "Library/functions.php";
 global $pdo;
 
 if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (isset($_POST["delete"])) {
-            if (deleteUser($_POST["delete"])) {
-                echo "<script>
+    if (isset($_POST["delete"])) {
+        if (deleteUser($_POST["delete"])) {
+            echo "<script>
                 alert('Data berhasil dihapus');
-                document.location.href = 'index.php?action=list_mitra';
+                document.location.href = 'index.php?action=list_user';
                 </script>";
-            } else {
-                echo "<script>
+        } else {
+            echo "<script>
                 alert('Data gagal dihapus');
-                document.location.href = 'index.php?action=list_mitra';
+                document.location.href = 'index.php?action=list_user';
                 </script>";
-            }
         }
     }
 }
+
 ?>
 
 <a href="?action=tambah_user" class="btn btn-primary"><i class="bi bi-plus-circle me-2"></i> Tambah</a>
@@ -32,7 +31,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
                 <th>Nama Akun</th>
                 <th>Email User</th>
                 <th>Username</th>
-                <th>Password</th>
+                <th>Role</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -54,7 +53,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
                     <td><?= $row["namaUser"] ?></td>
                     <td><?= $row["emailUser"] ?></td>
                     <td><?= $row["username"] ?></td>
-                    <td><?= $row["password"] ?></td>
+                    <td><?= $row["role"] ?></td>
                     <td>
                         <form action="" method="post">
                             <a href="" data-id="<?= $row["idAkun"] ?>"><i class="btn btn-primary bi bi-list-ul"></i></a>

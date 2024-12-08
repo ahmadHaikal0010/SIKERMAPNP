@@ -3,9 +3,15 @@
 include_once "Database/koneksi.php";
 
 // Register
-function register($data)
+function createUser($data)
 {
     global $pdo;
+
+    if ($data["password"] !== $data["password2"]) {
+        echo "<script>alert('Password tidak sama');</script>";
+
+        return false;
+    }
 
     $stmt = $pdo->prepare("INSERT INTO tb_user (namaUser, emailUser, username, password, role) VALUES (:namaUser, :emailUser, :username, :password, :role)");
     return $stmt->execute([
@@ -38,7 +44,7 @@ function deleteUser($id)
 {
     global $pdo;
 
-    $stmt = $pdo->prepare("DELETE FROM tb_user WHERE id = :id");
+    $stmt = $pdo->prepare("DELETE FROM tb_user WHERE idAkun = :id");
     return $stmt->execute([":id" => $id]);
 }
 

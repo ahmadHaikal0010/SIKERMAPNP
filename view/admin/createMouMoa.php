@@ -130,7 +130,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
             </div>
             <!-- mitra -->
             <div class="mb-5">
-                <label for="mitra" class="form-label">Mitra</label>
+                <label for="mitra_idMitra" class="form-label">Mitra</label>
                 <select name="mitra_idMitra" id="mitra_idMitra" class="form-select">
                     <option value="" selected disabled>--mitra--</option>
                     <?php
