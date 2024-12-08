@@ -1,10 +1,11 @@
 <?php
+
 include_once "database/koneksi.php";
 
 global $pdo;
 ?>
 
-<h2>List Data MOU dan MOA</h2>
+<a href="?action=tambah_mou_moa" class="btn btn-primary"><i class="bi bi-plus-circle me-2"></i> Tambah</a>
 <table id="tabel-mou-moa" class="table table-bordered table-striped">
     <thead>
         <tr>

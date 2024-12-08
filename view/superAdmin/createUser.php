@@ -1,4 +1,5 @@
 <?php
+
 include_once "Library/functions.php";
 
 global $pdo;

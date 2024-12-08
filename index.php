@@ -41,7 +41,7 @@ if (!isset($_SESSION["login"])) {
                         <a href="?action="><i class="bi bi-person-lines-fill me-2"></i> Data Akun</a>
                     <?php endif; ?>
                     <hr>
-                    <a href="view/auth/logout.php" onclick="confirm('Apakah anda yakin mau keluar?')"><i class="bi bi-box-arrow-right me-2"></i> Logout</a>
+                    <a href="view/auth/logout.php" onclick="return confirm('Apakah anda yakin mau keluar?')"><i class="bi bi-box-arrow-right me-2"></i> Logout</a>
                 <?php
                 }
             } else {

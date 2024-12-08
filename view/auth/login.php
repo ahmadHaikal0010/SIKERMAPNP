@@ -21,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (password_verify($password, $result[0]["password"])) {
                 $_SESSION["username"] = $result[0]["username"];
                 $_SESSION["role"] = $result[0]["role"];
+                $_SESSION["id"] = $result[0]["idAkun"];
                 $_SESSION["login"] = true;
                 header("Location: ../../index.php?page=home");
                 exit;

@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 include_once "Library/functions.php";
 
@@ -12,12 +11,12 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
             if (createMitra($_POST)) {
                 echo "<script>
                 alert('Data berhasil ditambahkan');
-                document.location.href = 'index.php';
+                document.location.href = 'index.php?action=list_mitra';
                 </script>";
             } else {
                 echo "<script>
                 alert('Data gagal ditambahkan');
-                document.location.href = 'index.php';
+                document.location.href = 'index.php?action=list_mitra';
                 </script>";
             }
         }
