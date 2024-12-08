@@ -40,7 +40,7 @@ if (!isset($_SESSION["login"])) {
                     <a href="?action=list_mou_moa"><i class="bi bi-folder me-2"></i> Data MOU/MOA</a>
                     <a href="?action=list_mitra"><i class="bi bi-briefcase me-2"></i> Data Mitra</a>
                     <?php if ($_SESSION["role"] === "super admin"): ?>
-                        <a href="?action="><i class="bi bi-person-lines-fill me-2"></i> Data Akun</a>
+                        <a href="?action=list_user"><i class="bi bi-person-lines-fill me-2"></i> Data Akun</a>
                     <?php endif; ?>
                     <hr>
                     <a href="view/auth/logout.php" onclick="return confirm('Apakah anda yakin mau keluar?')"><i class="bi bi-box-arrow-right me-2"></i> Logout</a>
@@ -112,9 +112,14 @@ if (!isset($_SESSION["login"])) {
             if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
                 if (isset($_GET["action"])) {
                     switch ($_GET["action"]) {
-                        case "tambahAkun":
+                        case "tambah_user":
                             if ($_SESSION["role"] === "super admin") {
                                 include_once "view/admin/createUser.php";
+                            }
+                            break;
+                        case "list_user":
+                            if ($_SESSION["role"] === "super admin") {
+                                include_once "view/admin/readUser.php";
                             }
                             break;
                         case "list_mou_moa":
