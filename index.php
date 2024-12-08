@@ -100,7 +100,7 @@ if (!isset($_SESSION["login"])) {
                     include_once "view/home.php";
                     break;
                 case "list_mou_moa":
-                    include_once "view/general/readMouMoa.php";
+                    include_once "view/admin/readMouMoa.php";
                     break;
                 default:
                     include_once "view/home.php";
@@ -128,6 +128,9 @@ if (!isset($_SESSION["login"])) {
                             break;
                         case "tambah_mitra":
                             include_once "view/admin/createMitra.php";
+                            break;
+                        case "update_mou_moa":
+                            include_once "view/admin/updateMouMoa.php";
                             break;
                     }
                 }

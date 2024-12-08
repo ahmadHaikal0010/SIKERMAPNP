@@ -114,3 +114,59 @@ function deleteMouMoa($id)
     $stmt = $pdo->prepare("DELETE FROM tb_mou_moa WHERE idMouMoa = :id");
     return $stmt->execute([":id" => $id]);
 }
+
+// Update MOU/MOA
+function updateMouMoa($id, $data) {
+    global $pdo;
+
+    $tanggal1 = new DateTime($data["awalKerjasama"]);
+    $tanggla2 = new DateTime($data["akhirKerjasama"]);
+    $jangkaWaktu = $tanggal1->diff($tanggla2);
+
+    // upload file
+    $fileName = $_FILES["fileDokumen"]["name"];
+    $fileDirektori = "uploads/documents/";
+    $fileTemporary = $_FILES["fileDokumen"]["tmp_name"];
+
+    // mengambil esktensi file
+    $ekstensi = explode(".", $fileName);
+    $ekstensi = strtolower(end($ekstensi));
+
+    // generate nama file baru
+    $namaFileBaru = uniqid();
+    $namaFileBaru .= ".";
+    $namaFileBaru .= $ekstensi;
+
+    // memindahkan file dari temporary ke direktori penyimpanan
+    move_uploaded_file($fileTemporary, $fileDirektori . $namaFileBaru);
+
+    $jurusan = implode(",", $data["jurusan"]);
+
+    $stmt = $pdo->prepare("UPDATE tb_mou_moa SET 
+    nomorMouMoa = :nomorMouMoa,
+    jenisKerjasama = :jenisKerjasama,
+    jangkaWaktu = :jangkaWaktu,
+    awalKerjasama = :awalKerjasama,
+    akhirKerjasama = :akhirKerjasama,
+    keterangan = :keterangan,
+    tindakan = :tindakan,
+    jurusan = :jurusan,
+    topik_kerjasama = :topik_kerjasama,
+    fileDokumen = :fileDokumen,
+    mitra_idMitra = :mitra_idMitra,
+    user_idAkun = :user_idAkun");
+    return $stmt->execute([
+        ":nomorMouMoa" => $data["nomorMou"],
+        ":jenisKerjasama" => $data["jenisKerjasama"],
+        ":jangkaWaktu" =>  $jangkaWaktu->y,
+        ":awalKerjasama" => $data["awalKerjasama"],
+        ":akhirKerjasama" => $data["akhirKerjasama"],
+        ":keterangan" => $data["keterangan"],
+        ":tindakan" => $data["tindakan"],
+        ":jurusan" => $jurusan,
+        ":topik_kerjasama" => $data["topik_kerjasama"],
+        ":fileDokumen" => $namaFileBaru,
+        ":mitra_idMitra" => $data["mitra_idMitra"],
+        ":user_idAkun" => $data["user_idAkun"]
+    ]);
+}

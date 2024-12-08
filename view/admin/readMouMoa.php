@@ -67,7 +67,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
                     <td>
                         <form action="" method="post">
                             <button name="detail" class="button-no-border tombol-aksi"><i class="btn btn-primary bi bi-list-ul"></i></button>
-                            <button name="edit" class="button-no-border tombol-aksi"><i class="btn btn-warning bi bi-pencil-square"></i></button>
+                            <a href="index.php?action=update_mou_moa&idMouMoa=<?= $row["idMouMoa"] ?>"><i class="btn btn-warning bi bi-pencil-square ms-1"></i></a>
                             <button name="delete" class="button-no-border tombol-aksi" value="<?= $row["idMouMoa"] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus?')"><i class="btn btn-danger bi bi-trash"></i></button>
                         </form>
                     </td>
