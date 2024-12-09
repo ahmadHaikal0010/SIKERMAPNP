@@ -122,6 +122,11 @@ if (!isset($_SESSION["login"])) {
                                 include_once "view/admin/readUser.php";
                             }
                             break;
+                        case "update_user":
+                            if ($_SESSION["role"] === "super admin") {
+                                include_once "view/admin/updateUser.php";
+                            }
+                            break;
                         case "list_mou_moa":
                             include_once "view/admin/readMouMoa.php";
                             break;

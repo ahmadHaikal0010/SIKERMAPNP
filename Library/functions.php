@@ -28,9 +28,9 @@ function updateUser($id, $data)
 {
     global $pdo;
 
-    $stmt = $pdo->prepare("UPDATE tb_user SET namaUser = :namaUser, emailUser = :emailUser, username = :username, password = :password, role = :role WHERE id = :id");
+    $stmt = $pdo->prepare("UPDATE tb_user SET namaUser = :namaUser, emailUser = :emailUser, username = :username, password = :password, role = :role WHERE idAkun = :id");
     return $stmt->execute([
-        ":id" => $id,
+        ":idAkun" => $id,
         ":namaUser" => $data["namaUser"],
         ":emailUser" => $data["emailUser"],
         ":username" => $data["username"],
