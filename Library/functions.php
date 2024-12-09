@@ -152,7 +152,8 @@ function createMouMoa($data)
 }
 
 // Update MOU/MOA
-function updateMouMoa($id, $data) {
+function updateMouMoa($id, $data)
+{
     global $pdo;
 
     $tanggal1 = new DateTime($data["awalKerjasama"]);
@@ -216,4 +217,54 @@ function deleteMouMoa($id)
 
     $stmt = $pdo->prepare("DELETE FROM tb_mou_moa WHERE idMouMoa = :id");
     return $stmt->execute([":id" => $id]);
+}
+
+// Create Kegiatan
+function createKegiatan($data)
+{
+    global $pdo;
+
+    $sql = $pdo->prepare("SELECT * FROM tb_mou_moa WHERE mitra_idMitra = :id");
+    $sql->execute([":id" => $data["idMitra"]]);
+
+    if (!$sql->rowCount()) {
+        echo "<script>alert('MOU/MOA dengan Mitra Tidak Cocok');</script>";
+
+        return false;
+    }
+
+    $direktori = "uploads/images/";
+    $file = [];
+
+    foreach ($_FILES['dokumentasi']['tmp_name'] as $key => $tmpName) {
+        $fileName = $_FILES['dokumentasi']['name'][$key]; // Nama file asli
+        $fileTmpPath = $_FILES['dokumentasi']['tmp_name'][$key]; // Path sementara file
+
+        // mengambil esktensi file
+        $ekstensi = explode(".", $fileName);
+        $ekstensi = strtolower(end($ekstensi));
+
+        // generate nama file baru
+        $namaFileBaru = uniqid();
+        $namaFileBaru .= ".";
+        $namaFileBaru .= $ekstensi;
+
+        $fileDestination = $direktori . $namaFileBaru; // Path tujuan
+
+        $file[] = $namaFileBaru;
+
+        move_uploaded_file($fileTmpPath, $fileDestination);
+    }
+
+    $namaFile = implode(",", $file);
+
+    $stmt = $pdo->prepare("INSERT INTO tb_kegiatan_kerjasama (kegiatan, deskripsi, dokumentasi, tb_mou_moa_idMouMoa, tb_mou_moa_mitra_idMitra, tb_mou_moa_user_idAkun) VALUES (:kegiatan, :deskripsi, :dokumentasi, :tb_mou_moa_idMouMoa, :tb_mou_moa_mitra_idMitra, :tb_mou_moa_user_idAkun)");
+    return $stmt->execute([
+        ":kegiatan" => $data["kegiatan"],
+        ":deskripsi" => $data["deskripsi"],
+        ":dokumentasi" => $namaFile,
+        ":tb_mou_moa_idMouMoa" => $data["idMouMoa"],
+        ":tb_mou_moa_mitra_idMitra" => $data["idMitra"],
+        ":tb_mou_moa_user_idAkun" => $data["idAkun"]
+    ]);
 }

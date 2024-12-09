@@ -56,11 +56,11 @@ if (!isset($_SESSION["login"])) {
                 <a href="?page=login"><i class="bi bi-box-arrow-in-left me-2"></i> Login</a>
             <?php } ?>
         </div>
-        <div class="help-box">
+        <!-- <div class="help-box">
             <h5>Need Help?</h5>
             <p>Contact support:</p>
             <a href="mailto:support@example.com">support@example.com</a>
-        </div>
+        </div> -->
     </div>
 
     <!-- Header -->
@@ -141,6 +141,9 @@ if (!isset($_SESSION["login"])) {
                             break;
                         case "tambah_mitra":
                             include_once "view/admin/createMitra.php";
+                            break;
+                        case "tambah_kegiatan":
+                            include_once "view/admin/createKegiatan.php";
                             break;
                         case "update_mou_moa":
                             include_once "view/admin/updateMouMoa.php";
