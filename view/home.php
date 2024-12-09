@@ -6,7 +6,7 @@
             <div class="card h-100">
                 <div class="card-body">
                     <h5 class="card-title">Statistik Ringkasan</h5>
-                    <canvas id="chart"></canvas>
+                    <canvas id="chartKerjasama"></canvas>
                 </div>
             </div>
         </div>

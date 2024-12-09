@@ -19,6 +19,8 @@ if (!isset($_SESSION["login"])) {
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
     <!-- CSS DataTables Responsive-->
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">
+    <!-- Chart JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js"></script>
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <!-- CSS External -->
@@ -37,7 +39,8 @@ if (!isset($_SESSION["login"])) {
             if ($_SESSION["login"]) {
                 if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
             ?>
-                    <a href="?action=list_mou_moa"><i class="bi bi-folder me-2"></i> Data MOU/MOA</a>
+                    <a href="?action=list_mou_moa"><i class="bi bi-bar-chart"></i> Data MOU/MOA</a>
+                    <a href="?action=list_kegiatan"><i class="bi bi-activity"></i> Data Kegiatan</a>
                     <a href="?action=list_mitra"><i class="bi bi-briefcase me-2"></i> Data Mitra</a>
                     <?php if ($_SESSION["role"] === "super admin"): ?>
                         <a href="?action=list_user"><i class="bi bi-person-lines-fill me-2"></i> Data Akun</a>
@@ -93,9 +96,6 @@ if (!isset($_SESSION["login"])) {
                 case "login":
                     header("Location: view/auth/login.php");
                     break;
-                case "register":
-                    header("Location: view/auth/register.php");
-                    break;
                 case "home":
                     include_once "view/home.php";
                     break;
@@ -133,6 +133,9 @@ if (!isset($_SESSION["login"])) {
                         case "list_mitra":
                             include_once "view/admin/readMitra.php";
                             break;
+                        case "list_kegiatan":
+                            include_once "view/admin/readKegiatan.php";
+                            break;
                         case "tambah_mou_moa":
                             include_once "view/admin/createMouMoa.php";
                             break;
@@ -166,7 +169,7 @@ if (!isset($_SESSION["login"])) {
     <!-- JS DataTables Responsive -->
     <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
     <!-- JS External -->
-    <script src="assets/js/script.js"></script>
+    <script type="module" src="assets/js/script.js"></script>
 </body>
 
 </html>
