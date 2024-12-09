@@ -56,7 +56,6 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
                     <td><?= $row["role"] ?></td>
                     <td>
                         <form action="" method="post">
-                            <a href="" data-id="<?= $row["idAkun"] ?>"><i class="btn btn-primary bi bi-list-ul"></i></a>
                             <a href="index.php?action=update_user&idAkun=<?= $row["idAkun"] ?>"><i class="btn btn-warning bi bi-pencil-square"></i></a>
                             <button name="delete" class="button-no-border tombol-aksi" value="<?= $row["idAkun"] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus?')"><i class="btn btn-danger bi bi-trash"></i></button>
                         </form>

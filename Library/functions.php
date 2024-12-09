@@ -226,6 +226,7 @@ function createKegiatan($data)
 
     $sql = $pdo->prepare("SELECT * FROM tb_mou_moa WHERE mitra_idMitra = :id");
     $sql->execute([":id" => $data["idMitra"]]);
+    $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 
     if (!$sql->rowCount()) {
         echo "<script>alert('MOU/MOA dengan Mitra Tidak Cocok');</script>";
@@ -265,7 +266,70 @@ function createKegiatan($data)
         ":dokumentasi" => $namaFile,
         ":tb_mou_moa_idMouMoa" => $data["idMouMoa"],
         ":tb_mou_moa_mitra_idMitra" => $data["idMitra"],
-        ":tb_mou_moa_user_idAkun" => $data["idAkun"]
+        ":tb_mou_moa_user_idAkun" => $result[0]["user_idAkun"]
+    ]);
+}
+
+// Update Kegiatan
+function updateKegiatan($id, $data)
+{
+    global $pdo;
+
+    $sql = $pdo->prepare("SELECT * FROM tb_mou_moa WHERE mitra_idMitra = :id");
+    $sql->execute([":id" => $data["idMitra"]]);
+    $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+    if (!$sql->rowCount()) {
+        echo "<script>alert('MOU/MOA dengan Mitra Tidak Cocok');</script>";
+
+        return false;
+    }
+
+    $direktori = "uploads/images/";
+    $file = [];
+
+    if (!empty($_FILES['files']['name'][0])) {
+        foreach ($_FILES['dokumentasi']['tmp_name'] as $key => $tmpName) {
+            $fileName = $_FILES['dokumentasi']['name'][$key]; // Nama file asli
+            $fileTmpPath = $_FILES['dokumentasi']['tmp_name'][$key]; // Path sementara file
+
+            // mengambil esktensi file
+            $ekstensi = explode(".", $fileName);
+            $ekstensi = strtolower(end($ekstensi));
+
+            // generate nama file baru
+            $namaFileBaru = uniqid();
+            $namaFileBaru .= ".";
+            $namaFileBaru .= $ekstensi;
+
+            $fileDestination = $direktori . $namaFileBaru; // Path tujuan
+
+            $file[] = $namaFileBaru;
+
+            move_uploaded_file($fileTmpPath, $fileDestination);
+        }
+
+        $namaFile = implode(",", $file);
+    } else {
+        $namaFile = $data["fileLama"];
+    }
+
+    $stmt = $pdo->prepare("UPDATE tb_kegiatan_kerjasama SET 
+    kegiatan = :kegiatan,
+    deskripsi = :deskripsi,
+    dokumentasi = :dokumentasi,
+    tb_mou_moa_idMouMoa = :tb_mou_moa_idMouMoa,
+    tb_mou_moa_mitra_idMitra = :tb_mou_moa_mitra_idMitra,
+    tb_mou_moa_user_idAkun = :tb_mou_moa_user_idAkun
+    WHERE idKegiatan = :id");
+    return $stmt->execute([
+        ":kegiatan" => $data["kegiatan"],
+        ":deskripsi" => $data["deskripsi"],
+        ":dokumentasi" => $namaFile,
+        ":tb_mou_moa_idMouMoa" => $data["idMouMoa"],
+        ":tb_mou_moa_mitra_idMitra" => $data["idMitra"],
+        ":tb_mou_moa_user_idAkun" => $result[0]["user_idAkun"],
+        ":id" => $id
     ]);
 }
 

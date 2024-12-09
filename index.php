@@ -151,6 +151,9 @@ if (!isset($_SESSION["login"])) {
                         case "update_mitra":
                             include_once "view/admin/updateMitra.php";
                             break;
+                        case "update_kegiatan":
+                            include_once "view/admin/updateKegiatan.php";
+                            break;
                     }
                 }
             }

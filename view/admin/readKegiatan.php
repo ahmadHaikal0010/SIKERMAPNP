@@ -57,12 +57,11 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
                         $files = explode(",", $row["dokumentasi"]);
                         foreach ($files as $file):
                         ?>
-                            <img src="uploads/images/<?= $file ?>" alt="" width="300px">
+                            <img src="uploads/images/<?= $file ?>" alt="" width="300px" class="tombol-aksi">
                         <?php endforeach; ?>
                     </td>
                     <td>
                         <form action="" method="post">
-                            <a href="" data-id="<?= $row["idKegiatan"] ?>"><i class="btn btn-primary bi bi-list-ul"></i></a>
                             <a href="index.php?action=update_kegiatan&idKegiatan=<?= $row["idKegiatan"] ?>"><i class="btn btn-warning bi bi-pencil-square"></i></a>
                             <button name="delete" class="button-no-border tombol-aksi" value="<?= $row["idKegiatan"] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus?')"><i class="btn btn-danger bi bi-trash"></i></button>
                         </form>
