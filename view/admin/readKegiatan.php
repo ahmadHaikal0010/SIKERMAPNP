@@ -7,15 +7,15 @@ global $pdo;
 if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST["delete"])) {
-            if (deleteMitra($_POST["delete"])) {
+            if (deleteKegiatan($_POST["delete"])) {
                 echo "<script>
                 alert('Data berhasil dihapus');
-                document.location.href = 'index.php?action=list_mitra';
+                document.location.href = 'index.php?action=list_kegiatan';
                 </script>";
             } else {
                 echo "<script>
                 alert('Data gagal dihapus');
-                document.location.href = 'index.php?action=list_mitra';
+                document.location.href = 'index.php?action=list_kegiatan';
                 </script>";
             }
         }

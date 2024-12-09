@@ -268,3 +268,12 @@ function createKegiatan($data)
         ":tb_mou_moa_user_idAkun" => $data["idAkun"]
     ]);
 }
+
+// Delete Kegiatan
+function deleteKegiatan($id)
+{
+    global $pdo;
+
+    $stmt = $pdo->prepare("DELETE FROM tb_kegiatan_kerjasama WHERE idkegiatan = :id");
+    return $stmt->execute([":id" => $id]);
+}
