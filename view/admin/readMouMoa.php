@@ -23,7 +23,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
 }
 ?>
 
-<a href="?action=tambah_user" class="btn btn-primary"><i class="bi bi-plus-circle me-2"></i> Tambah</a>
+<a href="?action=tambah_mou_moa" class="btn btn-primary"><i class="bi bi-plus-circle me-2"></i> Tambah</a>
 <div class="table-responsive">
     <table id="tabel-mou-moa" class="table table-bordered table-striped">
         <thead>

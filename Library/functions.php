@@ -115,6 +115,7 @@ function createMouMoa($data)
     $tanggla2 = new DateTime($data["akhirKerjasama"]);
     $jangkaWaktu = $tanggal1->diff($tanggla2);
 
+
     // upload file
     $fileName = $_FILES["fileDokumen"]["name"];
     $fileDirektori = "uploads/documents/";
@@ -160,22 +161,26 @@ function updateMouMoa($id, $data)
     $tanggla2 = new DateTime($data["akhirKerjasama"]);
     $jangkaWaktu = $tanggal1->diff($tanggla2);
 
-    // upload file
-    $fileName = $_FILES["fileDokumen"]["name"];
-    $fileDirektori = "uploads/documents/";
-    $fileTemporary = $_FILES["fileDokumen"]["tmp_name"];
+    if (!empty($_FILES['fileDokumen']['name'][0])) {
+        // upload file
+        $fileName = $_FILES["fileDokumen"]["name"];
+        $fileDirektori = "uploads/documents/";
+        $fileTemporary = $_FILES["fileDokumen"]["tmp_name"];
 
-    // mengambil esktensi file
-    $ekstensi = explode(".", $fileName);
-    $ekstensi = strtolower(end($ekstensi));
+        // mengambil esktensi file
+        $ekstensi = explode(".", $fileName);
+        $ekstensi = strtolower(end($ekstensi));
 
-    // generate nama file baru
-    $namaFileBaru = uniqid();
-    $namaFileBaru .= ".";
-    $namaFileBaru .= $ekstensi;
+        // generate nama file baru
+        $namaFileBaru = uniqid();
+        $namaFileBaru .= ".";
+        $namaFileBaru .= $ekstensi;
 
-    // memindahkan file dari temporary ke direktori penyimpanan
-    move_uploaded_file($fileTemporary, $fileDirektori . $namaFileBaru);
+        // memindahkan file dari temporary ke direktori penyimpanan
+        move_uploaded_file($fileTemporary, $fileDirektori . $namaFileBaru);
+    } else {
+        $namaFileBaru = $data["fileLama"];
+    }
 
     $jurusan = implode(",", $data["jurusan"]);
 

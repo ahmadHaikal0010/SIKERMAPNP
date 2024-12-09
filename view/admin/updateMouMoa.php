@@ -32,6 +32,8 @@ try {
 foreach ($result as $row);
 if ($row["jurusan"] !== "General") {
     $jurusan = explode(",", $row["jurusan"]);
+} else {
+    $jurusan = [];
 }
 ?>
 
@@ -159,6 +161,7 @@ if ($row["jurusan"] !== "General") {
                 </select>
             </div>
             <input type="number" name="user_idAkun" value="<?= $_SESSION["id"] ?>" hidden>
+            <input type="text" name="fileLama" value="<?= $row["fileDokumen"] ?>" hidden>
             <button type="submit" name="submit" class="btn btn-primary w-30">Update</button>
         </form>
     </div>
