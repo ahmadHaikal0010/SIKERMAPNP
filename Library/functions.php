@@ -2,7 +2,7 @@
 
 include_once "Database/koneksi.php";
 
-// Register
+// Create User
 function createUser($data)
 {
     global $pdo;
@@ -339,4 +339,46 @@ function deleteKegiatan($id)
 
     $stmt = $pdo->prepare("DELETE FROM tb_kegiatan_kerjasama WHERE idkegiatan = :id");
     return $stmt->execute([":id" => $id]);
+}
+
+// Create Kerjasama
+function createKerjasama($data)
+{
+    global $pdo;
+
+    $direktori = "uploads/documents/";
+
+    foreach ($_FILES['dokumentasi']['tmp_name'] as $key => $tmpName) {
+        $fileName = $_FILES['dokumentasi']['name'][$key]; // Nama file asli
+        $fileTmpPath = $_FILES['dokumentasi']['tmp_name'][$key]; // Path sementara file
+
+        // mengambil esktensi file
+        $ekstensi = explode(".", $fileName);
+        $ekstensi = strtolower(end($ekstensi));
+
+        // generate nama file baru
+        $namaFileBaru = uniqid();
+        $namaFileBaru .= ".";
+        $namaFileBaru .= $ekstensi;
+
+        $fileDestination = $direktori . $namaFileBaru; // Path tujuan
+
+        $file[] = $namaFileBaru;
+
+        move_uploaded_file($fileTmpPath, $fileDestination);
+    }
+
+    $namaFile = implode(",", $file);
+
+    $stmt = $pdo->prepare("INSERT INTO tb_usulan_kerjasama (namaInstansi, alamat, namaPenandaTangan, namaJabatan, namaKontakPerson, noKontak, emailUsulan, dokumenUsulan, waktu) VALUES (:namaInstansi, :alamat, :namaPenandaTangan, :namaJabatan, :namaKontakPerson, :noKontak, :emailUsulan, :dokumenUsulan, NOW())");
+    return $stmt->execute([
+        ":namaInstansi" => $data["nama_instansi"],
+        ":alamat" => $data["alamat_instansi"],
+        ":namaPenandaTangan" => $data["nama_penandatangan"],
+        ":namaJabatan" => $data["jabatan"],
+        ":namaKontakPerson" => $data["kontak_person"],
+        ":noKontak" => $data["kontak"],
+        ":emailUsulan" => $namaFile,
+        ":dokumenUsulan" => $data["dokumen"]
+    ]);
 }

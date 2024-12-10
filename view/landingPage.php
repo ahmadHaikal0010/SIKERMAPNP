@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 include_once "../database/koneksi.php";
 
 global $pdo;
@@ -27,7 +29,7 @@ global $pdo;
 
         /* Navigation Bar */
         .navbar {
-            background-color: #1D2951;
+            background-color: #f57c00;
             color: white;
             padding: 10px 20px;
             display: flex;
@@ -62,7 +64,8 @@ global $pdo;
 
         /* Hero Section */
         .hero {
-            background: url('../assets/image/heroo.jpg') no-repeat center center/cover;
+            /* background: url('../assets/image/heroo.jpg') no-repeat center center/cover; */
+            background-color: #F9C586;
             height: 100vh;
             color: white;
             display: flex;
@@ -112,7 +115,7 @@ global $pdo;
     <div class="navbar">
         <div class="logo">SIKERMA - PNP</div>
         <div class="menu">
-            <a href="">Ajukan Kerjasama</a>
+            <a href="pengajuan.php">Ajukan Kerjasama</a>
             <a href="#stats">Statistik</a>
             <a href="#kerjasama">Kerjasama</a>
             <a href="auth/login.php">Login</a>
@@ -286,7 +289,7 @@ global $pdo;
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <!-- JS DataTables -->
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
@@ -297,6 +300,21 @@ global $pdo;
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/vfs_fonts.min.js"></script>
+    <!-- Sweet Aleret -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        var messageText = "<?= $_SESSION["status"] ?? '' ?>";
+
+        if (messageText != "") {
+            Swal.fire({
+                title: "Thank You!",
+                text: messageText,
+                icon: "success"
+            });
+            <?php unset($_SESSION["status"]); ?>
+        }
+    </script>
 
     <script>
         new DataTable("#table-awal");

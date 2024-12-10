@@ -159,7 +159,8 @@ footer {
 
 /* Login and Register */
 .login {
-    background: url('../image/Frame2.png') no-repeat center center fixed;
+    /* background: url('../image/Frame2.png') no-repeat center center fixed; */
+    background-color: #fff;
     background-size: cover;
     height: 100vh;
     display: flex;
@@ -171,7 +172,7 @@ footer {
     background: #fff;
     border-radius: 15px;
     padding: 2rem;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
 }
