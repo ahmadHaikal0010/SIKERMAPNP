@@ -43,7 +43,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
             <?php
             $i = 1;
             try {
-                $stmt = $pdo->prepare("SELECT * FROM tb_mou_moa JOIN tb_mitra ON tb_mou_moa.mitra_idMitra = tb_mitra.idMitra ORDER BY awalKerjasama DESC");
+                $stmt = $pdo->prepare("SELECT *, DATE_FORMAT(awalKerjasama, '%d %M %Y') AS awalKerjasama, DATE_FORMAT(akhirKerjasama, '%d %M %Y') AS akhirKerjasama FROM tb_mou_moa JOIN tb_mitra ON tb_mou_moa.mitra_idMitra = tb_mitra.idMitra ORDER BY awalKerjasama DESC");
                 $stmt->execute();
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             } catch (PDOException $e) {
@@ -56,7 +56,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
                     <td><?= $i ?></td>
                     <td><?= $row["jenisKerjasama"] ?></td>
                     <td><?= $row["namaInstansi"] ?></td>
-                    <td><?= $row["jangkaWaktu"] . " Tahun";?></td>
+                    <td><?= $row["jangkaWaktu"] . " Tahun"; ?></td>
                     <td><?= $row["topik_kerjasama"] ?></td>
                     <td><?= $row["keterangan"] ?></td>
                     <td><?= $row["jurusan"] ?></td>
@@ -65,12 +65,39 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
                     </td>
                     <td>
                         <form action="" method="post">
-                            <button name="detail" class="button-no-border tombol-aksi"><i class="btn btn-primary bi bi-list-ul"></i></button>
+                            <button type="button" name="detail" class="button-no-border tombol-aksi" data-bs-toggle="modal" data-bs-target="#<?= $row["idMouMoa"] ?>"><i class="btn btn-primary bi bi-list-ul"></i></button>
                             <a href="index.php?action=update_mou_moa&idMouMoa=<?= $row["idMouMoa"] ?>"><i class="btn btn-warning bi bi-pencil-square ms-1"></i></a>
                             <button name="delete" class="button-no-border tombol-aksi" value="<?= $row["idMouMoa"] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus?')"><i class="btn btn-danger bi bi-trash"></i></button>
                         </form>
                     </td>
                 </tr>
+
+                <!-- Modal -->
+                <div class="modal fade" id="<?= $row["idMouMoa"] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h6>Nomor MOU/MOA: <?= $row["nomorMouMoa"] ?></h6>
+                                <h6>Jenis Kerjasama: <?= $row["jenisKerjasama"] ?></h6>
+                                <h6>Jangka Waktu: <?= $row["jangkaWaktu"] ?> Tahun</h6>
+                                <h6>Awal Kerjasama: <?= $row["awalKerjasama"] ?></h6>
+                                <h6>Akhir Kerjasama: <?= $row["akhirKerjasama"] ?></h6>
+                                <h6>Keterangan: <?= $row["keterangan"] ?></h6>
+                                <h6>Tindakan: <?= $row["tindakan"] ?></h6>
+                                <h6>Jurusan: <?= $row["jurusan"] ?></h6>
+                                <h6>Topik Kerjasama: <?= $row["topik_kerjasama"] ?></h6>
+                            </div>
+                            <div class="modal-footer">
+                                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Understood</button> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             <?php
                 $i++;
