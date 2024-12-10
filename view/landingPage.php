@@ -182,7 +182,7 @@ global $pdo;
                         <th>#</th>
                         <th>Nama Mitra</th>
                         <th>Jenis</th>
-                        <!-- <th>Judul Kerjasama</th> -->
+                        <th>Judul Kerjasama</th>
                         <th>Tanggal Awal</th>
                         <th>Tanggal Akhir</th>
                         <th>Status</th>
@@ -193,7 +193,8 @@ global $pdo;
                     <?php
                     $i = 1;
                     try {
-                        $stmt = $pdo->prepare("SELECT namaInstansi, jenisKerjasama, awalKerjasama, akhirKerjasama, keterangan FROM tb_mou_moa JOIN tb_mitra ON tb_mou_moa.idMouMoa = tb_mitra.idMitra ORDER BY awalKerjasama DESC");
+                        $stmt = $pdo->prepare("SELECT idMouMoa, judul_kerjasama, namaInstansi, jenisKerjasama, DATE_FORMAT(awalKerjasama, '%d %M %Y') AS awalKerjasama, DATE_FORMAT(awalKerjasama, '%d %M %Y') AS akhirKerjasama, akhirKerjasama AS akhir
+                         FROM tb_mou_moa JOIN tb_mitra ON tb_mou_moa.idMouMoa = tb_mitra.idMitra ORDER BY awalKerjasama DESC");
                         $stmt->execute();
                         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     } catch (PDOException $e) {
@@ -206,11 +207,61 @@ global $pdo;
                             <td><?= $i ?></td>
                             <td><?= $row["namaInstansi"] ?></td>
                             <td><?= strtoupper($row["jenisKerjasama"]) ?></td>
+                            <td><?= $row["judul_kerjasama"] ?></td>
                             <td><?= $row["awalKerjasama"] ?></td>
                             <td><?= $row["akhirKerjasama"] ?></td>
-                            <td><?= $row["keterangan"] ?></td>
-                            <td><button class="btn btn-primary btn-sm">Detail</button></td>
+                            <td>
+                                <?php
+                                if (date("Y-m-d") <= $row["akhir"]) {
+                                    $ket = "Aktif";
+                                } else {
+                                    $ket = "Tidak Aktif";
+                                }
+                                ?>
+                                <?= htmlspecialchars($ket, ENT_QUOTES, 'UTF-8') ?>
+                            </td>
+                            <td><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#<?= $row["idMouMoa"] ?>">Detail</button></td>
                         </tr>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="<?= $row["idMouMoa"] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel"><?= $row["judul_kerjasama"] ?></h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h6>Nama Mitra: <?= $row["namaInstansi"] ?></h6>
+                                        <h6>Jenis: <?= strtoupper($row["jenisKerjasama"]) ?></h6>
+                                        <h6>Judul Kerjasama: <?= $row["judul_kerjasama"] ?></h6>
+                                        <h6>Tanggal Awal: <?= $row["awalKerjasama"] ?></h6>
+                                        <h6>Tanggal Akhir: <?= $row["akhirKerjasama"] ?></h6>
+                                        <h6>Status: <?= $ket ?></h6>
+                                        <h6>Kegiatan yang telah dilaksanakan: </h6>
+                                        <?php
+                                        $j = 1;
+                                        try {
+                                            $stmt = $pdo->prepare("SELECT * FROM tb_kegiatan_kerjasama JOIN tb_mou_moa ON tb_kegiatan_kerjasama.idKegiatan = tb_mou_moa.idMouMoa WHERE tb_mou_moa_idMouMoa = :id");
+                                            $stmt->execute([":id" => $row["idMouMoa"]]);
+                                            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                        } catch (PDOException $e) {
+                                            echo "Gagal mengambil data: " . $e->getMessage();
+                                        }
+
+                                        foreach ($result as $kegiatan):
+                                        ?>
+                                            <p><?= $j . ". " . $kegiatan["kegiatan"] ?></p>
+                                        <?php endforeach; ?>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Understood</button> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     <?php
                         $i++;
                     endforeach;
