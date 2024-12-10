@@ -145,7 +145,8 @@ include_once "Library/functions.php";
                                                                  DATE_FORMAT(awalKerjasama, '%d %M %Y') AS awalKerjasama, 
                                                                  DATE_FORMAT(akhirKerjasama, '%d %M %Y') AS akhirKerjasama
                                                           FROM tb_mou_moa 
-                                                          WHERE akhirKerjasama BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 1 MONTH)");
+                                                          WHERE akhirKerjasama BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 1 MONTH)
+                                                          ORDER BY akhirKerjasama DESC");
                             $stmt->execute();
                             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         } catch (PDOException $e) {
@@ -154,7 +155,7 @@ include_once "Library/functions.php";
 
                         foreach ($result as $berakhir):
                         ?>
-                            <div>
+                            <div class="terbaru">
                                 <p class="mb-1"><strong><?= $berakhir["topik_kerjasama"] ?></strong></p>
                                 <p class="text-muted mb-0"><?= $berakhir["awalKerjasama"] ?> - <?= $berakhir["akhirKerjasama"] ?></p>
                             </div>

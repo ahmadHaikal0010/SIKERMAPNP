@@ -32,7 +32,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
             <div class="mb-5">
                 <label for="idMouMoa" class="form-label">MOU/MOA</label>
                 <select name="idMouMoa" id="idMouMoa" class="form-select">
-                    <option value="" selected disabled>--mou/moa--</option>
+                    <option value="" selected disabled>MOU/MOA</option>
                     <?php
                     $stmt = $pdo->prepare("SELECT idMouMoa, nomorMouMoa FROM tb_mou_moa");
                     $stmt->execute();
@@ -50,7 +50,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
             <div class="mb-5">
                 <label for="idMitra" class="form-label">Mitra</label>
                 <select name="idMitra" id="idMitra" class="form-select">
-                    <option value="" selected disabled>--mitra--</option>
+                    <option value="" selected disabled>Mitra</option>
                     <?php
                     $stmt = $pdo->prepare("SELECT idMitra, namaInstansi FROM tb_mitra");
                     $stmt->execute();

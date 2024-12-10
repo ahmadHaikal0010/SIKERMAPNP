@@ -1,7 +1,8 @@
 <?php
 session_start();
-if (!isset($_SESSION["login"])) {
-    $_SESSION["login"] = false;
+if (!isset($_SESSION["login"]) || $_SESSION["login"] === false) {
+    header("Location: view/landingPage.php");
+    exit;
 }
 ?>
 
@@ -25,7 +26,7 @@ if (!isset($_SESSION["login"])) {
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <!-- CSS External -->
-    <link rel="stylesheet" href="assets/css/style.css"> 
+    <link rel="stylesheet" href="assets/css/style.css">
     <title>SIKERMA PNP</title>
 </head>
 

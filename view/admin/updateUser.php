@@ -66,8 +66,8 @@ foreach ($result as $row);
             <div class="mb-5">
                 <label for="mitra" class="form-label">Role</label>
                 <select name="role" id="role" class="form-select">
-                    <option value="" disabled>--role--</option>
-                    <option value="super admin" <?= ($row["role"] == "super admin") ? "selected" : "" ?> disabled>Super Admin</option>
+                    <option value="" disabled>role</option>
+                    <option value="super admin" <?= ($row["role"] == "super admin") ? "selected" : "" ?>>Super Admin</option>
                     <option value="admin" <?= ($row["role"] == "admin") ? "selected" : "" ?>>Admin</option>
                     <option value="jurusan" <?= ($row["role"] == "jurusan") ? "selected" : "" ?>>Jurusan</option>
                 </select>

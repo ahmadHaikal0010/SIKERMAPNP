@@ -58,7 +58,8 @@ if ($_SESSION["role"] === "super admin") {
             <div class="mb-5">
                 <label for="mitra" class="form-label">Role</label>
                 <select name="role" id="role" class="form-select">
-                    <option value="" selected disabled>--role--</option>
+                    <option value="" selected disabled>role</option>
+                    <option value="super admin">Super Admin</option>
                     <option value="admin">Admin</option>
                     <option value="jurusan">Jurusan</option>
                 </select>

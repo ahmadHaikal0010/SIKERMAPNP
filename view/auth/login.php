@@ -60,12 +60,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
             </div>
             <div class="d-flex justify-content-between mb-3">
-                <a href="#" class="text-decoration-none">Forget password?</a>
+                <!-- <a href="#" class="text-decoration-none">Forget password?</a> -->
             </div>
             <button type="submit" class="btn btn-primary w-100" name="submit">Login</button>
         </form>
         <div class="text-center mt-3">
-            <p>Don't have an account? <a href="register.php" class="text-decoration-none">Sign Up</a></p>
+            <!-- <p>Don't have an account? <a href="register.php" class="text-decoration-none">Sign Up</a></p> -->
         </div>
     </div>
     <!-- Bootstrap JS -->

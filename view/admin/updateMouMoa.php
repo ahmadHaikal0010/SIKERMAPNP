@@ -145,7 +145,7 @@ if ($row["jurusan"] !== "General") {
             <div class="mb-5">
                 <label for="mitra" class="form-label">Mitra</label>
                 <select name="mitra_idMitra" id="mitra_idMitra" class="form-select">
-                    <option value="" selected disabled>--mitra--</option>
+                    <option value="" selected disabled>Mitra</option>
                     <?php
                     $stmt = $pdo->prepare("SELECT idMitra, namaInstansi FROM tb_mitra");
                     $stmt->execute();

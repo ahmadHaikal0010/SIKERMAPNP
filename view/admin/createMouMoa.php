@@ -132,7 +132,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
             <div class="mb-5">
                 <label for="mitra_idMitra" class="form-label">Mitra</label>
                 <select name="mitra_idMitra" id="mitra_idMitra" class="form-select" required>
-                    <option value="" selected disabled>--mitra--</option>
+                    <option value="" selected disabled>Mitra</option>
                     <?php
                     $stmt = $pdo->prepare("SELECT idMitra, namaInstansi FROM tb_mitra");
                     $stmt->execute();
