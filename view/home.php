@@ -42,9 +42,7 @@ include_once "Library/functions.php";
 
         $tahun_json = json_encode($tahun);
         $label_json = json_encode($label);
-        $jumlah_json = json_encode($jumlah);
-
-        ;
+        $jumlah_json = json_encode($jumlah);;
         ?>
         <div class="col-md-6">
             <div class="card h-100">
@@ -61,10 +59,9 @@ include_once "Library/functions.php";
                 <div class="card-body">
                     <h5 class="card-title">Daftar Pengajuan Baru</h5>
                     <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <?php
-                            try {
-                                $stmt = $pdo->prepare("SELECT 
+                        <?php
+                        try {
+                            $stmt = $pdo->prepare("SELECT 
                                                                 idUsulan, 
                                                                 namaInstansi, 
                                                                 DATE_FORMAT(waktu, '%d %M %Y') AS waktu
@@ -74,18 +71,20 @@ include_once "Library/functions.php";
                                                                 idUsulan DESC 
                                                             LIMIT 5;
                                                             ");
-                                $stmt->execute();
-                                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                            } catch (PDOException $e) {
-                                echo "Gagal mengambil data: " . $e->getMessage();
-                            }
+                            $stmt->execute();
+                            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        } catch (PDOException $e) {
+                            echo "Gagal mengambil data: " . $e->getMessage();
+                        }
 
-                            foreach ($result as $usulan):
-                            ?>
+                        foreach ($result as $usulan):
+                        ?>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+
                                 <span><?= $usulan["namaInstansi"] ?></span>
                                 <span class="text-muted"><?= $usulan["waktu"] ?></span>
-                        </li>
-                    <?php endforeach; ?>
+                            </li>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
             </div>
@@ -231,14 +230,14 @@ include_once "Library/functions.php";
                         text: 'Jumlah'
                     },
                     ticks: {
-                    stepSize: 1,  // Menetapkan langkah setiap label untuk angka bulat
-                    callback: function(value) {
-                        // Menghilangkan label desimal (menampilkan hanya angka bulat)
-                        if (value % 1 === 0) {
-                            return value;
+                        stepSize: 1, // Menetapkan langkah setiap label untuk angka bulat
+                        callback: function(value) {
+                            // Menghilangkan label desimal (menampilkan hanya angka bulat)
+                            if (value % 1 === 0) {
+                                return value;
+                            }
                         }
                     }
-                }
                 },
                 x: {
                     title: {
