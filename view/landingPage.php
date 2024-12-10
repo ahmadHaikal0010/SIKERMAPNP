@@ -204,13 +204,14 @@ global $pdo;
                     <tr>
                         <td><?= $i ?></td>
                         <td><?= $row["namaInstansi"] ?></td>
-                        <td><?= $row["jenisKerjasama"] ?></td>
+                        <td><?= strtoupper($row["jenisKerjasama"]) ?></td>
                         <td><?= $row["awalKerjasama"] ?></td>
                         <td><?= $row["akhirKerjasama"] ?></td>
                         <td><?= $row["keterangan"] ?></td>
                         <td><button class="btn btn-primary btn-sm">Detail</button></td>
                     </tr>
                     <?php
+                    $i++;
                     endforeach;
                     ?>
                 </tbody>

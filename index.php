@@ -165,7 +165,7 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] === false) {
 
     <!-- Footer -->
     <footer>
-        &copy; 2024 SIKERMA | All rights reserved.
+        &copy; 2024 SIKERMA.
     </footer>
 
     <!-- JS Bootstrap -->

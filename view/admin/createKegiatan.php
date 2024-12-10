@@ -30,35 +30,17 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
         <form action="" method="POST" enctype="multipart/form-data">
             <!-- mou / moa -->
             <div class="mb-5">
-                <label for="idMouMoa" class="form-label">MOU/MOA</label>
+                <label for="idMouMoa" class="form-label">Judul Kerjasama</label>
                 <select name="idMouMoa" id="idMouMoa" class="form-select">
                     <option value="" selected disabled>MOU/MOA</option>
                     <?php
-                    $stmt = $pdo->prepare("SELECT idMouMoa, nomorMouMoa FROM tb_mou_moa");
+                    $stmt = $pdo->prepare("SELECT idMouMoa, judul_kerjasama FROM tb_mou_moa");
                     $stmt->execute();
                     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                     foreach ($result as $rows):
                     ?>
-                        <option value="<?= $rows["idMouMoa"] ?>"><?= $rows["nomorMouMoa"] ?></option>
-                    <?php
-                    endforeach;
-                    ?>
-                </select>
-            </div>
-            <!-- mitra -->
-            <div class="mb-5">
-                <label for="idMitra" class="form-label">Mitra</label>
-                <select name="idMitra" id="idMitra" class="form-select">
-                    <option value="" selected disabled>Mitra</option>
-                    <?php
-                    $stmt = $pdo->prepare("SELECT idMitra, namaInstansi FROM tb_mitra");
-                    $stmt->execute();
-                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                    foreach ($result as $row):
-                    ?>
-                        <option value="<?= $row["idMitra"] ?>"><?= $row["namaInstansi"] ?></option>
+                        <option value="<?= $rows["idMouMoa"] ?>"><?= $rows["judul_kerjasama"] ?></option>
                     <?php
                     endforeach;
                     ?>

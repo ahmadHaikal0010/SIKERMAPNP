@@ -135,14 +135,14 @@ function createMouMoa($data)
 
     $jurusan = implode(",", $data["jurusan"]);
 
-    $stmt = $pdo->prepare("INSERT INTO tb_mou_moa (nomorMouMoa, jenisKerjasama, jangkaWaktu, awalKerjasama, akhirKerjasama, keterangan, tindakan, jurusan, topik_kerjasama, fileDokumen,  mitra_idMitra, user_idAkun) VALUES (:nomorMouMoa, :jenisKerjasama, :jangkaWaktu, :awalKerjasama, :akhirKerjasama, :keterangan, :tindakan, :jurusan, :topik_kerjasama, :fileDokumen,  :mitra_idMitra, :user_idAkun)");
+    $stmt = $pdo->prepare("INSERT INTO tb_mou_moa (nomorMouMoa, jenisKerjasama, judul_kerjasama, jangkaWaktu, awalKerjasama, akhirKerjasama, tindakan, jurusan, topik_kerjasama, fileDokumen,  mitra_idMitra, user_idAkun) VALUES (:nomorMouMoa, :jenisKerjasama, :judul_kerjasama, :jangkaWaktu, :awalKerjasama, :akhirKerjasama, :tindakan, :jurusan, :topik_kerjasama, :fileDokumen,  :mitra_idMitra, :user_idAkun)");
     return $stmt->execute([
         ":nomorMouMoa" => $data["nomorMou"],
         ":jenisKerjasama" => $data["jenisKerjasama"],
+        ":judul_kerjasama" => $data["judulKerjasama"],
         ":jangkaWaktu" =>  $jangkaWaktu->y,
         ":awalKerjasama" => $data["awalKerjasama"],
         ":akhirKerjasama" => $data["akhirKerjasama"],
-        ":keterangan" => $data["keterangan"],
         ":tindakan" => $data["tindakan"],
         ":jurusan" => $jurusan,
         ":topik_kerjasama" => $data["topik_kerjasama"],
@@ -187,10 +187,10 @@ function updateMouMoa($id, $data)
     $stmt = $pdo->prepare("UPDATE tb_mou_moa SET 
     nomorMouMoa = :nomorMouMoa,
     jenisKerjasama = :jenisKerjasama,
+    judul_kerjasama = :judul_kerjasama,
     jangkaWaktu = :jangkaWaktu,
     awalKerjasama = :awalKerjasama,
     akhirKerjasama = :akhirKerjasama,
-    keterangan = :keterangan,
     tindakan = :tindakan,
     jurusan = :jurusan,
     topik_kerjasama = :topik_kerjasama,
@@ -201,10 +201,10 @@ function updateMouMoa($id, $data)
     return $stmt->execute([
         ":nomorMouMoa" => $data["nomorMou"],
         ":jenisKerjasama" => $data["jenisKerjasama"],
+        ":judul_kerjasama" => $data["judulKerjasama"],
         ":jangkaWaktu" =>  $jangkaWaktu->y,
         ":awalKerjasama" => $data["awalKerjasama"],
         ":akhirKerjasama" => $data["akhirKerjasama"],
-        ":keterangan" => $data["keterangan"],
         ":tindakan" => $data["tindakan"],
         ":jurusan" => $jurusan,
         ":topik_kerjasama" => $data["topik_kerjasama"],
@@ -229,15 +229,12 @@ function createKegiatan($data)
 {
     global $pdo;
 
-    $sql = $pdo->prepare("SELECT * FROM tb_mou_moa WHERE mitra_idMitra = :id");
-    $sql->execute([":id" => $data["idMitra"]]);
+    $sql = $pdo->prepare("SELECT * FROM tb_mou_moa WHERE idMouMoa = :id");
+    $sql->execute([":id" => $data["idMouMoa"]]);
     $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-    if (!$sql->rowCount()) {
-        echo "<script>alert('MOU/MOA dengan Mitra Tidak Cocok');</script>";
-
-        return false;
-    }
+    foreach ($result as $row);
+    $idMitra = $row["mitra_idMitra"];
 
     $direktori = "uploads/images/";
     $file = [];
@@ -270,7 +267,7 @@ function createKegiatan($data)
         ":deskripsi" => $data["deskripsi"],
         ":dokumentasi" => $namaFile,
         ":tb_mou_moa_idMouMoa" => $data["idMouMoa"],
-        ":tb_mou_moa_mitra_idMitra" => $data["idMitra"],
+        ":tb_mou_moa_mitra_idMitra" => $idMitra,
         ":tb_mou_moa_user_idAkun" => $result[0]["user_idAkun"]
     ]);
 }
@@ -280,15 +277,12 @@ function updateKegiatan($id, $data)
 {
     global $pdo;
 
-    $sql = $pdo->prepare("SELECT * FROM tb_mou_moa WHERE mitra_idMitra = :id");
-    $sql->execute([":id" => $data["idMitra"]]);
+    $sql = $pdo->prepare("SELECT * FROM tb_mou_moa WHERE idMouMoa = :id");
+    $sql->execute([":id" => $data["idMouMoa"]]);
     $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-    if (!$sql->rowCount()) {
-        echo "<script>alert('MOU/MOA dengan Mitra Tidak Cocok');</script>";
-
-        return false;
-    }
+    foreach ($result as $row);
+    $idMitra = $row["mitra_idMitra"];
 
     $direktori = "uploads/images/";
     $file = [];
@@ -332,7 +326,7 @@ function updateKegiatan($id, $data)
         ":deskripsi" => $data["deskripsi"],
         ":dokumentasi" => $namaFile,
         ":tb_mou_moa_idMouMoa" => $data["idMouMoa"],
-        ":tb_mou_moa_mitra_idMitra" => $data["idMitra"],
+        ":tb_mou_moa_mitra_idMitra" => $idMitra,
         ":tb_mou_moa_user_idAkun" => $result[0]["user_idAkun"],
         ":id" => $id
     ]);

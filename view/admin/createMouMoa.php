@@ -49,6 +49,11 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
                     </label>
                 </div>
             </div>
+            <!-- judul kerjasama -->
+            <div class="mb-4">
+                <label for="judulKerjasama" class="form-label">Judul Kerjasama</label>
+                <input type="text" id="judulKerjasama" name="judulKerjasama" class="form-control" required>
+            </div>
             <!-- awal kerjasama -->
             <div class="mb-4">
                 <label for="awalKerjasama" class="form-label">Awal Kerjasama</label>
@@ -58,14 +63,6 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
             <div class="mb-4">
                 <label for="akhirKerjasama" class="form-label">Akhir Kerjasama</label>
                 <input type="date" id="akhirKerjasama" name="akhirKerjasama" class="form-control">
-            </div>
-            <!-- keterangan -->
-            <div class="mb-4">
-                <label for="keterangan" class="form-label">Keterangan</label>
-                <select id="keterangan" name="keterangan" class="form-select">
-                    <option value="Aktif">Aktif</option>
-                    <option value="Tidak Aktif">Tidak Aktif</option>
-                </select>
             </div>
             <!-- tindakan -->
             <div class="mb-4">

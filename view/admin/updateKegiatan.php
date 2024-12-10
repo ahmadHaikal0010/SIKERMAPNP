@@ -38,37 +38,18 @@ foreach ($result as $data);
         <form action="" method="POST" enctype="multipart/form-data">
             <!-- mou / moa -->
             <div class="mb-5">
-                <label for="idMouMoa" class="form-label">MOU/MOA</label>
+                <label for="idMouMoa" class="form-label">Judul Kerjasama</label>
                 <select name="idMouMoa" id="idMouMoa" class="form-select">
                     <option value="" selected disabled>MOU/MOA</option>
                     <?php
-                    $stmt = $pdo->prepare("SELECT idMouMoa, nomorMouMoa FROM tb_mou_moa");
+                    $stmt = $pdo->prepare("SELECT idMouMoa, judul_kerjasama FROM tb_mou_moa");
                     $stmt->execute();
                     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                     foreach ($result as $rows):
                         $selected = ($rows["idMouMoa"] == $data["tb_mou_moa_idMouMoa"]) ? "selected" : "";
                     ?>
-                        <option value="<?= $rows["idMouMoa"] ?>" <?= $selected ?>><?= $rows["nomorMouMoa"] ?></option>
-                    <?php
-                    endforeach;
-                    ?>
-                </select>
-            </div>
-            <!-- mitra -->
-            <div class="mb-5">
-                <label for="idMitra" class="form-label">Mitra</label>
-                <select name="idMitra" id="idMitra" class="form-select">
-                    <option value="" selected disabled>Mitra</option>
-                    <?php
-                    $stmt = $pdo->prepare("SELECT idMitra, namaInstansi FROM tb_mitra");
-                    $stmt->execute();
-                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                    foreach ($result as $row):
-                        $selected = ($row["idMitra"] == $data["tb_mou_moa_mitra_idMitra"]) ? "selected" : "";
-                    ?>
-                        <option value="<?= $row["idMitra"] ?>" <?= $selected ?>><?= $row["namaInstansi"] ?></option>
+                        <option value="<?= $rows["idMouMoa"] ?>" <?= $selected ?>><?= $rows["judul_kerjasama"] ?></option>
                     <?php
                     endforeach;
                     ?>

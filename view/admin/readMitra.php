@@ -60,8 +60,8 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
                     <td><?= $row["bidangUsaha"] ?></td>
                     <td><?= $row["provinsi"] ?></td>
                     <td>
-                        <form action="" method="post">
-                            <a href="" data-id="<?= $row["idMitra"] ?>"><i class="btn btn-primary bi bi-list-ul"></i></a>
+                        <form action="" method="post" class="action-buttons-vertical">
+                            <a href="" class="button-no-border tombol-aksi" data-id="<?= $row["idMitra"] ?>"><i class="btn btn-primary bi bi-list-ul"></i></a>
                             <a href="index.php?action=update_mitra&idMitra=<?= $row["idMitra"] ?>"><i class="btn btn-warning bi bi-pencil-square"></i></a>
                             <button name="delete" class="button-no-border tombol-aksi" value="<?= $row["idMitra"] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus?')"><i class="btn btn-danger bi bi-trash"></i></button>
                         </form>
