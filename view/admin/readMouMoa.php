@@ -43,7 +43,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
             <?php
             $i = 1;
             try {
-                $stmt = $pdo->prepare("SELECT *, DATE_FORMAT(awalKerjasama, '%d %M %Y') AS awalKerjasama, DATE_FORMAT(akhirKerjasama, '%d %M %Y') AS akhirKerjasama FROM tb_mou_moa JOIN tb_mitra ON tb_mou_moa.mitra_idMitra = tb_mitra.idMitra ORDER BY akhirKerjasama DESC");
+                $stmt = $pdo->prepare("SELECT *, DATE_FORMAT(awalKerjasama, '%d %M %Y') AS awalKerjasama, DATE_FORMAT(akhirKerjasama, '%d %M %Y') AS akhirKerjasama, akhirKerjasama AS akhir FROM tb_mou_moa JOIN tb_mitra ON tb_mou_moa.mitra_idMitra = tb_mitra.idMitra ORDER BY akhirKerjasama DESC");
                 $stmt->execute();
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             } catch (PDOException $e) {
@@ -60,15 +60,15 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
                     <td><?= $row["jangkaWaktu"] . " Tahun" ?></td>
                     <td>
                         <?php
-                        if (date("d-M-Y") <= $row["akhirKerjasama"]) {
+                        if (date("Y-m-d") <= $row["akhir"]) {
                             $ket = "Aktif";
                         } else {
                             $ket = "Tidak Aktif";
                         }
                         ?>
-                        <?= $ket ?>
+                        <?= htmlspecialchars($ket, ENT_QUOTES, 'UTF-8') ?>
                     </td>
-                    <td><?= $row["jurusan"] ?></td>
+                    <td><?= $row["jurusan"]; ?></td>
                     <td>
                         <div class="action-buttons-vertical">
                             <a href="uploads/documents/<?= $row["fileDokumen"] ?>"><i class="btn btn-success bi bi-cloud-download"></i></a>

@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION["role"] = $result[0]["role"];
                 $_SESSION["id"] = $result[0]["idAkun"];
                 $_SESSION["login"] = true;
-                header("Location: ../../index.php?page=home");
+                header("Location: ../../index.php?action=home");
                 exit;
             }
         }
@@ -38,6 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 
 <head>
+    <link rel="shortcut icon" href="../../assets/image/logo.png" type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>

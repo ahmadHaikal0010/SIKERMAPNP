@@ -10,6 +10,7 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] === false) {
 <html lang="en">
 
 <head>
+    <link rel="shortcut icon" href="assets/image/logo.png" type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS Bootstrap -->
@@ -36,11 +37,12 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] === false) {
     <div class="sidebar">
         <div>
             <h4>SIKERMA</h4>
-            <a href="?page=home"><i class="bi bi-house-door me-2"></i> Home</a>
+
             <?php
             if ($_SESSION["login"]) {
                 if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
             ?>
+                    <a href="?action=home"><i class="bi bi-house-door me-2"></i> Home</a>
                     <a href="?action=list_mou_moa"><i class="bi bi-bar-chart"></i> Data MOU/MOA</a>
                     <a href="?action=list_kegiatan"><i class="bi bi-activity"></i> Data Kegiatan</a>
                     <a href="?action=list_mitra"><i class="bi bi-briefcase me-2"></i> Data Mitra</a>
@@ -49,14 +51,10 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] === false) {
                     <?php endif; ?>
                     <hr>
                     <a href="view/auth/logout.php" onclick="return confirm('Apakah anda yakin mau keluar?')"><i class="bi bi-box-arrow-right me-2"></i> Logout</a>
-                <?php
+            <?php
                 }
-            } else {
-                ?>
-                <a href="?page="><i class="bi bi-folder me-2"></i> Data MOU/MOA</a>
-                <hr>
-                <a href="?page=login"><i class="bi bi-box-arrow-in-left me-2"></i> Login</a>
-            <?php } ?>
+            }
+            ?>
         </div>
         <!-- <div class="help-box">
             <h5>Need Help?</h5>
@@ -92,28 +90,14 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] === false) {
     <!-- Main Content -->
     <div class="Main">
         <?php
-        // Mengecek Navigasi
-        if (isset($_GET["page"])) {
-            switch ($_GET["page"]) {
-                case "login":
-                    header("Location: view/auth/login.php");
-                    break;
-                case "home":
-                    include_once "view/home.php";
-                    break;
-                case "list_mou_moa":
-                    include_once "view/admin/readMouMoa.php";
-                    break;
-                default:
-                    include_once "view/home.php";
-            }
-        }
-
         // Mengecek Level User
         if ($_SESSION["login"]) {
             if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
                 if (isset($_GET["action"])) {
                     switch ($_GET["action"]) {
+                        case "home":
+                            include_once "view/home.php";
+                            break;
                         case "tambah_user":
                             if ($_SESSION["role"] === "super admin") {
                                 include_once "view/admin/createUser.php";
@@ -156,6 +140,8 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] === false) {
                         case "update_kegiatan":
                             include_once "view/admin/updateKegiatan.php";
                             break;
+                        default:
+                            include_once "view/home.php";
                     }
                 }
             }

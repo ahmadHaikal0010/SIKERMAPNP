@@ -8,6 +8,7 @@ global $pdo;
 <html lang="en">
 
 <head>
+    <link rel="shortcut icon" href="../assets/image/logo.png" type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sikerma PNP</title>
@@ -201,17 +202,17 @@ global $pdo;
 
                     foreach ($result as $row):
                     ?>
-                    <tr>
-                        <td><?= $i ?></td>
-                        <td><?= $row["namaInstansi"] ?></td>
-                        <td><?= strtoupper($row["jenisKerjasama"]) ?></td>
-                        <td><?= $row["awalKerjasama"] ?></td>
-                        <td><?= $row["akhirKerjasama"] ?></td>
-                        <td><?= $row["keterangan"] ?></td>
-                        <td><button class="btn btn-primary btn-sm">Detail</button></td>
-                    </tr>
+                        <tr>
+                            <td><?= $i ?></td>
+                            <td><?= $row["namaInstansi"] ?></td>
+                            <td><?= strtoupper($row["jenisKerjasama"]) ?></td>
+                            <td><?= $row["awalKerjasama"] ?></td>
+                            <td><?= $row["akhirKerjasama"] ?></td>
+                            <td><?= $row["keterangan"] ?></td>
+                            <td><button class="btn btn-primary btn-sm">Detail</button></td>
+                        </tr>
                     <?php
-                    $i++;
+                        $i++;
                     endforeach;
                     ?>
                 </tbody>
