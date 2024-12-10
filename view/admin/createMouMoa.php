@@ -52,17 +52,17 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
             <!-- awal kerjasama -->
             <div class="mb-4">
                 <label for="awalKerjasama" class="form-label">Awal Kerjasama</label>
-                <input type="date" id="awalKerjasama" name="awalKerjasama" class="form-control" required>
+                <input type="date" id="awalKerjasama" name="awalKerjasama" class="form-control">
             </div>
             <!-- akhir kerjasama -->
             <div class="mb-4">
                 <label for="akhirKerjasama" class="form-label">Akhir Kerjasama</label>
-                <input type="date" id="akhirKerjasama" name="akhirKerjasama" class="form-control" required>
+                <input type="date" id="akhirKerjasama" name="akhirKerjasama" class="form-control">
             </div>
             <!-- keterangan -->
             <div class="mb-4">
                 <label for="keterangan" class="form-label">Keterangan</label>
-                <select id="keterangan" name="keterangan" class="form-select" required>
+                <select id="keterangan" name="keterangan" class="form-select">
                     <option value="Aktif">Aktif</option>
                     <option value="Tidak Aktif">Tidak Aktif</option>
                 </select>
@@ -126,12 +126,12 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
             <!-- file dokumen kerjasama -->
             <div class="mb-4">
                 <label for="fileDokumen" class="form-label">File Dokumen Kerjasama</label>
-                <input type="file" name="fileDokumen" id="fileDokumen" class="form-control">
+                <input type="file" name="fileDokumen" id="fileDokumen" class="form-control" required>
             </div>
             <!-- mitra -->
             <div class="mb-5">
                 <label for="mitra_idMitra" class="form-label">Mitra</label>
-                <select name="mitra_idMitra" id="mitra_idMitra" class="form-select">
+                <select name="mitra_idMitra" id="mitra_idMitra" class="form-select" required>
                     <option value="" selected disabled>--mitra--</option>
                     <?php
                     $stmt = $pdo->prepare("SELECT idMitra, namaInstansi FROM tb_mitra");

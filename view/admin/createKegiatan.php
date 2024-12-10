@@ -67,7 +67,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
             <!-- kegiatan -->
             <div class="mb-4">
                 <label for="kegiatan" class="form-label">Kegiatan</label>
-                <input type="text" id="kegiatan" name="kegiatan" class="form-control" required>
+                <input type="text" id="kegiatan" name="kegiatan" class="form-control">
             </div>
             <!-- deskripsi -->
             <div class="mb-4">

@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // cek password
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if (password_verify($password, $result[0]["password"])) {
-                $_SESSION["username"] = $result[0]["username"];
+                $_SESSION["username"] = $result[0]["namaUser"];
                 $_SESSION["role"] = $result[0]["role"];
                 $_SESSION["id"] = $result[0]["idAkun"];
                 $_SESSION["login"] = true;

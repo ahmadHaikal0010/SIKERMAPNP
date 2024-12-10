@@ -42,7 +42,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
             <div class="mb-4">
                 <label for="alamatMitra" class="form-label">Alamat Mitra</label>
                 <div class="form-floating">
-                    <textarea class="form-control" name="alamatMitra" placeholder="alamat" id="alamatMitra" style="height: 100px"></textarea>
+                    <textarea class="form-control" name="alamatMitra" placeholder="alamat" id="alamatMitra" style="height: 100px" required></textarea>
                 </div>
             </div>
             <!-- email mitra -->
@@ -67,12 +67,12 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
             <!-- provinsi -->
             <div class="mb-4">
                 <label for="provinsi" class="form-label">Provinsi</label>
-                <input type="text" id="provinsi" name="provinsi" class="form-control">
+                <input type="text" id="provinsi" name="provinsi" class="form-control" required>
             </div>
             <!-- kota -->
             <div class="mb-4">
                 <label for="kota" class="form-label">Kota</label>
-                <input type="text" id="kota" name="kota" class="form-control">
+                <input type="text" id="kota" name="kota" class="form-control" required>
             </div>
             <button type="submit" name="submit" class="btn btn-primary w-30">Submit</button>
         </form>

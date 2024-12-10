@@ -174,3 +174,23 @@ footer {
 .btn-primary:hover {
     background-color: #e87d3c;
 }
+
+.card {
+    border: none;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
+}
+.form-card {
+    border: none;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.1);
+}
+
+.kontainer-column {
+    flex-direction: column;
+    gap: 10px; /* Memberikan jarak antar elemen jika diperlukan */
+}
+
+.terbaru {
+    margin-bottom: 10px; /* Jarak antar elemen jika lebih spesifik */
+    flex-direction: column;
+    gap: 10px; /* Memberikan jarak antar elemen jika diperlukan */
+}

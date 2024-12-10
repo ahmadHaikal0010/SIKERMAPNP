@@ -1,34 +1,4 @@
-$(document).ready(function () {
-  // Inisialisasi DataTables pada tabel dengan ID "example"
-  $("#tabel-mou-moa").DataTable({
-    paging: true, // Aktifkan pagination
-    searching: true, // Aktifkan fitur pencarian
-    ordering: true, // Aktifkan fitur pengurutan
-    responsive: true,
-    lengthChange: true,
-  });
-  
-  $("#tabel-mitra").DataTable({
-    paging: true, // Aktifkan pagination
-    searching: true, // Aktifkan fitur pencarian
-    ordering: true, // Aktifkan fitur pengurutan
-    responsive: true,
-    lengthChange: true,
-  });
-  
-  $("#tabel-user").DataTable({
-    paging: true, // Aktifkan pagination
-    searching: true, // Aktifkan fitur pencarian
-    ordering: true, // Aktifkan fitur pengurutan
-    responsive: true,
-    lengthChange: true,
-  });
-  $("#tabel-kegiatan").DataTable({
-    paging: true, // Aktifkan pagination
-    searching: true, // Aktifkan fitur pencarian
-    ordering: true, // Aktifkan fitur pengurutan
-    responsive: true,
-    lengthChange: true,
-  });
-  
-});
+new DataTable("#tabel-mou-moa");
+new DataTable("#tabel-mitra");
+new DataTable("#tabel-user");
+new DataTable("#tabel-kegiatan");
