@@ -11,7 +11,7 @@ if ($_SESSION["role"] === "super admin") {
             if (createUser($_POST)) {
                 echo "<script>
                 alert('Data berhasil ditambahkan');
-                document.location.href = 'index.php';
+                document.location.href = 'index.php?action=tambah_user';
                 </script>";
             } else {
                 echo "<script>

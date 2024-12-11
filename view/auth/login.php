@@ -44,6 +44,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Login Page</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 
@@ -62,11 +64,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="d-flex justify-content-between mb-3">
                 <!-- <a href="#" class="text-decoration-none">Forget password?</a> -->
+                <!-- <a href="../landingPage.php" class="text-decoration-none"><i class="bi bi-arrow-left-circle me-2"></i> Back</a> -->
+                <!-- <a href=""><i class="bi bi-arrow-left-circle me-2"></i> Back</a> -->
             </div>
             <button type="submit" class="btn btn-primary w-100" name="submit">Login</button>
         </form>
         <div class="text-center mt-3">
-            <!-- <p>Don't have an account? <a href="register.php" class="text-decoration-none">Sign Up</a></p> -->
+            <a href="../landingPage.php" style="color: #ff914d;" class="text-decoration-none"><i class="bi bi-arrow-left-circle"></i> Back</a>
         </div>
     </div>
     <!-- Bootstrap JS -->

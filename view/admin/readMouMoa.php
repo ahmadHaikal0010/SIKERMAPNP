@@ -23,7 +23,9 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
 }
 ?>
 
-<a href="?action=tambah_mou_moa" class="btn btn-primary"><i class="bi bi-plus-circle me-2"></i> Tambah</a>
+<?php if ($_SESSION["role"] !== "jurusan"): ?>
+    <a href="?action=tambah_mou_moa" class="btn btn-primary"><i class="bi bi-plus-circle me-2"></i> Tambah</a>
+<?php endif; ?>
 <div class="table-responsive">
     <table id="tabel-mou-moa" class="table table-bordered table-striped">
         <thead>
@@ -43,7 +45,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
             <?php
             $i = 1;
             try {
-                $stmt = $pdo->prepare("SELECT *, DATE_FORMAT(awalKerjasama, '%d %M %Y') AS awalKerjasama, DATE_FORMAT(akhirKerjasama, '%d %M %Y') AS akhirKerjasama, akhirKerjasama AS akhir FROM tb_mou_moa JOIN tb_mitra ON tb_mou_moa.mitra_idMitra = tb_mitra.idMitra ORDER BY akhirKerjasama DESC");
+                $stmt = $pdo->prepare("SELECT *, DATE_FORMAT(awalKerjasama, '%d %M %Y') AS awalKerjasama, DATE_FORMAT(akhirKerjasama, '%d %M %Y') AS akhirKerjasama, akhirKerjasama AS akhir FROM tb_mou_moa JOIN tb_mitra ON tb_mou_moa.mitra_idMitra = tb_mitra.idMitra ORDER BY awalKerjasama DESC");
                 $stmt->execute();
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             } catch (PDOException $e) {
@@ -79,10 +81,12 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
                             <button type="button" name="detail" class="button-no-border tombol-aksi" data-bs-toggle="modal" data-bs-target="#<?= $row["idMouMoa"] ?>">
                                 <i class="btn btn-primary bi bi-list-ul"></i>
                             </button>
-                            <a href="index.php?action=update_mou_moa&idMouMoa=<?= $row["idMouMoa"] ?>" class="btn btn-warning bi bi-pencil-square"></a>
-                            <button name="delete" class="button-no-border tombol-aksi" value="<?= $row["idMouMoa"] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus?')">
-                                <i class="btn btn-danger bi bi-trash"></i>
-                            </button>
+                            <?php if ($_SESSION["role"] !== "jurusan"): ?>
+                                <a href="index.php?action=update_mou_moa&idMouMoa=<?= $row["idMouMoa"] ?>" class="btn btn-warning bi bi-pencil-square"></a>
+                                <button name="delete" class="button-no-border tombol-aksi" value="<?= $row["idMouMoa"] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus?')">
+                                    <i class="btn btn-danger bi bi-trash"></i>
+                                </button>
+                            <?php endif; ?>
                         </form>
                     </td>
                 </tr>

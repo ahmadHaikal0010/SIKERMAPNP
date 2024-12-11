@@ -40,16 +40,18 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] === false) {
 
             <?php
             if ($_SESSION["login"]) {
-                if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
+                if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin" || $_SESSION["role"] === "jurusan") {
             ?>
                     <a href="?action=home"><i class="bi bi-house-door me-2"></i> Home</a>
                     <a href="?action=list_mou_moa"><i class="bi bi-bar-chart"></i> Data MOU/MOA</a>
-                    <a href="?action=list_kegiatan"><i class="bi bi-activity"></i> Data Kegiatan</a>
-                    <a href="?action=list_mitra"><i class="bi bi-briefcase me-2"></i> Data Mitra</a>
-                    <?php if ($_SESSION["role"] === "super admin"): ?>
-                        <a href="?action=list_user"><i class="bi bi-person-lines-fill me-2"></i> Data Akun</a>
+                    <?php if ($_SESSION["role"] !== "jurusan"): ?>
+                        <a href="?action=list_kegiatan"><i class="bi bi-activity"></i> Data Kegiatan</a>
+                        <a href="?action=list_mitra"><i class="bi bi-briefcase me-2"></i> Data Mitra</a>
+                        <?php if ($_SESSION["role"] === "super admin"): ?>
+                            <a href="?action=list_user"><i class="bi bi-person-lines-fill me-2"></i> Data Akun</a>
+                        <?php endif; ?>
+                        <hr>
                     <?php endif; ?>
-                    <hr>
                     <a href="view/auth/logout.php" onclick="return confirm('Apakah anda yakin mau keluar?')"><i class="bi bi-box-arrow-right me-2"></i> Logout</a>
             <?php
                 }
@@ -92,7 +94,7 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] === false) {
         <?php
         // Mengecek Level User
         if ($_SESSION["login"]) {
-            if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
+            if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin" || $_SESSION["role"] === "jurusan") {
                 if (isset($_GET["action"])) {
                     switch ($_GET["action"]) {
                         case "home":
