@@ -103,7 +103,7 @@ include_once "Library/functions.php";
                         try {
                             $stmt = $pdo->prepare("SELECT 
                                                                 idMouMoa, 
-                                                                topik_kerjasama, 
+                                                                judul_kerjasama, 
                                                                 DATE_FORMAT(awalKerjasama, '%d %M %Y') AS awalKerjasama, 
                                                                 DATE_FORMAT(akhirKerjasama, '%d %M %Y') AS akhirKerjasama
                                                             FROM 
@@ -121,7 +121,7 @@ include_once "Library/functions.php";
                         foreach ($result as $terbaru):
                         ?>
                             <div class="terbaru">
-                                <p class="mb-1 ms-3"><strong><?= $terbaru["topik_kerjasama"] ?></strong></p>
+                                <p class="mb-1 ms-3"><strong><?= $terbaru["judul_kerjasama"] ?></strong></p>
                                 <ul>
                                     <li>
                                         <p class="text-muted mb-0 home-isi"><?= $terbaru["awalKerjasama"] ?> - <?= $terbaru["akhirKerjasama"] ?></p>
@@ -144,7 +144,7 @@ include_once "Library/functions.php";
                         <?php
                         try {
                             $stmt = $pdo->prepare("SELECT idMouMoa, 
-                                                                 topik_kerjasama, 
+                                                                 judul_kerjasama, 
                                                                  DATE_FORMAT(awalKerjasama, '%d %M %Y') AS awalKerjasama, 
                                                                  DATE_FORMAT(akhirKerjasama, '%d %M %Y') AS akhirKerjasama
                                                           FROM tb_mou_moa 
@@ -159,7 +159,7 @@ include_once "Library/functions.php";
                         foreach ($result as $berakhir):
                         ?>
                             <div class="terbaru">
-                                <p class="mb-1 ms-3"><strong><?= $berakhir["topik_kerjasama"] ?></strong></p>
+                                <p class="mb-1 ms-3"><strong><?= $berakhir["judul_kerjasama"] ?></strong></p>
                                 <ul>
                                     <li>
                                         <p class="text-muted mb-0 home-isi"><?= $berakhir["awalKerjasama"] ?> - <?= $berakhir["akhirKerjasama"] ?></p>

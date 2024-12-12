@@ -389,8 +389,38 @@ function createKerjasama($data)
     ]);
 }
 
+try {
+    $stmt = $pdo->prepare("SELECT idMouMoa,
+                                         nomorMouMoa, 
+                                         judul_kerjasama,
+                                         jenisKerjasama,
+                                         namaInstansi,
+                                         topik_kerjasama,
+                                         DATE_FORMAT(awalKerjasama, '%d %M %Y') AS awalKerjasama, 
+                                         DATE_FORMAT(akhirKerjasama, '%d %M %Y') AS akhirKerjasama
+                                  FROM tb_mou_moa
+                                  JOIN tb_mitra
+                                  ON tb_mou_moa.idMouMoa = tb_mitra.idMitra
+                                  WHERE akhirKerjasama BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 1 MONTH) AND mailing = 'belum'");
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Gagal mengambil data: " . $e->getMessage();
+}
+
+if (isset($result)) {
+    foreach ($result as $row) {
+        sendEmail($row);
+        $update = $pdo->prepare("UPDATE tb_mou_moa SET mailing = :mailing WHERE idMouMoa = :idMouMoa");
+        $update->execute([
+            ":mailing" => "sudah",
+            ":idMouMoa" => $row["idMouMoa"]
+        ]);
+    }
+}
+
 // Send Mail
-function sendEmail()
+function sendEmail($data)
 {
     //Create an instance; passing `true` enables exceptions
     $mail = new PHPMailer(true);
@@ -418,33 +448,23 @@ function sendEmail()
         // $mail->addBCC('bcc@example.com');
 
         //Attachments
-        $mail->addAttachment('../uploads/documents/' );         //Add attachments
+        // $mail->addAttachment('../uploads/documents/' );         //Add attachments
         // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
 
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML
-        $mail->Subject = 'Mengusulkan Kerjasama Baru';
-        $mail->Body    = '<h5>Hi</h5>
-        <h6>Nama Instansi: ' . $_POST["nama_instansi"] . '</h6>
-        <h6>Alamat Instansi: ' . $_POST["alamat_instansi"] . '</h6>
-        <h6>No Kontak: ' . $_POST["kontak"] . '</h6>
-        <h6>Nama Penanda Tangan: ' . $_POST["nama_penandatangan"] . '</h6>
-        <h6>Jabatan: ' . $_POST["jabatan"] . '</h6>
-        <h6>Kontak Person: ' . $_POST["kontak_person"] . '</h6>
-        <h6>Email: ' . $_POST["email"] . '</h6>
+        $mail->Subject = 'Kerjasama Yang Akan Berakhir';
+        $mail->Body    = '
+        <h6>Nomor MOU/MOA: ' . $data["nomorMouMoa"] . '</h6>
+        <h6>Jenis Kerjasama: ' . $data["jenisKerjasama"] . '</h6>
+        <h6>Judul Kerjasama: ' . $data["judul_kerjasama"] . '</h6>
+        <h6>Nama Instansi: ' . $data["namaInstansi"] . '</h6>
+        <h6>Topik Kerjasama: ' . $data["topik_kerjasama"] . '</h6>
     ';
         // $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
 
-        if ($mail->send()) {
-            $_SESSION["status"] = "Thank You For Contact Us";
-            header("Location: landingPage.php");
-            exit(0);
-        } else {
-            $_SESSION["status"] = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-            header("Location: {$_SERVER["HTTP_REFERER"]}");
-            exit(0);
-        }
+        $mail->send();
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }

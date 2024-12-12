@@ -65,13 +65,13 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
                     <td><?= $row["judul_kerjasama"] ?></td>
                     <td><?= $row["namaInstansi"] ?></td>
                     <td><?= $row["jangkaWaktu"] . " Tahun" ?></td>
-                    <td class="<?= $class; ?>">
+                    <td>
                         <?= htmlspecialchars($ket, ENT_QUOTES, 'UTF-8') ?>
                     </td>
                     <td><?= $row["jurusan"]; ?></td>
                     <td>
                         <div class="action-buttons-vertical">
-                            <a href="uploads/documents/<?= $row["fileDokumen"] ?>"><i class="btn btn-success bi bi-cloud-download"></i></a>
+                            <a href="uploads/documents/<?= $row["fileDokumen"] ?>" download=""><i class="btn btn-success bi bi-cloud-download"></i></a>
                         </div>
                     </td>
                     <td>

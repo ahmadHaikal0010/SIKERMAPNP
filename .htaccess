@@ -1,0 +1,5 @@
+# Mencegah akses langsung ke direktori
+Options -Indexes
+
+# Mengevaluasi apakah session sudah disiapkan
+RewriteRule ^(.*)$ view/landingPage.php [L,R=302]
