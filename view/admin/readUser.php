@@ -25,7 +25,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
 <a href="?action=tambah_user" class="btn btn-primary"><i class="bi bi-plus-circle me-2"></i> Tambah</a>
 <div class="table-responsive">
     <table id="tabel-user" class="table table-bordered table-striped">
-        <thead>
+        <thead class="table-dark">
             <tr>
                 <th>No</th>
                 <th>Nama Akun</th>

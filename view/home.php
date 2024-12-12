@@ -47,7 +47,7 @@ include_once "Library/functions.php";
         <div class="col-md-6">
             <div class="card h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Statistik Ringkasan</h5>
+                    <h5 class="card-title home-judul">Statistik Ringkasan</h5>
                     <canvas id="myChart1"></canvas>
                 </div>
             </div>
@@ -57,7 +57,7 @@ include_once "Library/functions.php";
         <div class="col-md-6">
             <div class="card h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Daftar Pengajuan Baru</h5>
+                    <h5 class="card-title home-judul">Daftar Pengajuan Baru</h5>
                     <ul class="list-group">
                         <?php
                         try {
@@ -82,7 +82,7 @@ include_once "Library/functions.php";
                             <li class="list-group-item d-flex justify-content-between align-items-center">
 
                                 <span><?= $usulan["namaInstansi"] ?></span>
-                                <span class="text-muted"><?= $usulan["waktu"] ?></span>
+                                <span class="text-muted home-isi"><?= $usulan["waktu"] ?></span>
                             </li>
                         <?php endforeach; ?>
                     </ul>
@@ -96,7 +96,7 @@ include_once "Library/functions.php";
         <div class="col-md-6">
             <div class="card h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Daftar Kerjasama Terbaru</h5>
+                    <h5 class="card-title home-judul">Daftar Kerjasama Terbaru</h5>
                     <div class="d-flex kontainer-column">
                         <!-- <div class="me-3" style="background-color: #FF9A3F; width: 50px; height: 50px;"></div> -->
                         <?php
@@ -121,8 +121,12 @@ include_once "Library/functions.php";
                         foreach ($result as $terbaru):
                         ?>
                             <div class="terbaru">
-                                <p class="mb-1"><strong><?= $terbaru["topik_kerjasama"] ?></strong></p>
-                                <p class="text-muted mb-0"><?= $terbaru["awalKerjasama"] ?> - <?= $terbaru["akhirKerjasama"] ?></p>
+                                <p class="mb-1 ms-3"><strong><?= $terbaru["topik_kerjasama"] ?></strong></p>
+                                <ul>
+                                    <li>
+                                        <p class="text-muted mb-0 home-isi"><?= $terbaru["awalKerjasama"] ?> - <?= $terbaru["akhirKerjasama"] ?></p>
+                                    </li>
+                                </ul>
                             </div>
                         <?php endforeach; ?>
                     </div>
@@ -134,7 +138,7 @@ include_once "Library/functions.php";
         <div class="col-md-6">
             <div class="card h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Kerjasama Yang Akan Berakhir</h5>
+                    <h5 class="card-title home-judul">Kerjasama Yang Akan Berakhir</h5>
                     <div class="d-flex kontainer-column">
                         <!-- <div class="me-3" style="background-color: #FF9A3F; width: 50px; height: 50px;"></div> -->
                         <?php
@@ -155,8 +159,12 @@ include_once "Library/functions.php";
                         foreach ($result as $berakhir):
                         ?>
                             <div class="terbaru">
-                                <p class="mb-1"><strong><?= $berakhir["topik_kerjasama"] ?></strong></p>
-                                <p class="text-muted mb-0"><?= $berakhir["awalKerjasama"] ?> - <?= $berakhir["akhirKerjasama"] ?></p>
+                                <p class="mb-1 ms-3"><strong><?= $berakhir["topik_kerjasama"] ?></strong></p>
+                                <ul>
+                                    <li>
+                                        <p class="text-muted mb-0 home-isi"><?= $berakhir["awalKerjasama"] ?> - <?= $berakhir["akhirKerjasama"] ?></p>
+                                    </li>
+                                </ul>
                             </div>
                         <?php endforeach; ?>
                     </div>

@@ -28,7 +28,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
 <?php endif; ?>
 <div class="table-responsive">
     <table id="tabel-mou-moa" class="table table-bordered table-striped">
-        <thead>
+        <thead class="table-dark">
             <tr>
                 <th>No</th>
                 <th>Jenis Kerjasama</th>
@@ -53,6 +53,11 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
             }
 
             foreach ($result as $row):
+                if (date("Y-m-d") <= $row["akhir"]) {
+                    $ket = "Aktif";
+                } else {
+                    $ket = "Tidak Aktif";
+                }
             ?>
                 <tr>
                     <td><?= $i ?></td>
@@ -60,14 +65,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
                     <td><?= $row["judul_kerjasama"] ?></td>
                     <td><?= $row["namaInstansi"] ?></td>
                     <td><?= $row["jangkaWaktu"] . " Tahun" ?></td>
-                    <td>
-                        <?php
-                        if (date("Y-m-d") <= $row["akhir"]) {
-                            $ket = "Aktif";
-                        } else {
-                            $ket = "Tidak Aktif";
-                        }
-                        ?>
+                    <td class="<?= $class; ?>">
                         <?= htmlspecialchars($ket, ENT_QUOTES, 'UTF-8') ?>
                     </td>
                     <td><?= $row["jurusan"]; ?></td>
@@ -92,7 +90,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
                 </tr>
 
                 <!-- Modal -->
-                <div class="modal fade" id="<?= $row["idMouMoa"] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal modal-lg fade" id="<?= $row["idMouMoa"] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">

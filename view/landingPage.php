@@ -19,17 +19,20 @@ global $pdo;
     <!-- CSS DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.0/css/buttons.bootstrap5.min.css">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         /* General Styling */
         body {
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
         }
 
         /* Navigation Bar */
         .navbar {
-            background-color: #f57c00;
+            background-color: #343a40;
             color: white;
             padding: 10px 20px;
             display: flex;
@@ -56,15 +59,16 @@ global $pdo;
             color: white;
             text-decoration: none;
             font-size: 14px;
+            font-weight: 600;
         }
 
-        .navbar .menu a:hover {
+        /* .navbar .menu a:hover {
             text-decoration: underline;
-        }
+        } */
 
         /* Hero Section */
         .hero {
-            /* background: url('../assets/image/heroo.jpg') no-repeat center center/cover; */
+            background: url('../assets/image/jabat.jpg') no-repeat center center/cover;
             background-color: #F9C586;
             height: 100vh;
             color: white;
@@ -98,9 +102,18 @@ global $pdo;
             padding: 2rem 0;
         }
 
+        .btn-detail {
+            background-color: #ff914d;
+            border: none;
+        }
+
+        .btn-detail:hover {
+            background-color: #e87d3c;
+        }
+
         /* Footer */
         footer {
-            background-color: #1D2951;
+            background-color: #343a40;
             color: white;
             text-align: left;
             justify-content: center;
@@ -196,7 +209,7 @@ global $pdo;
                     <?php
                     $i = 1;
                     try {
-                        $stmt = $pdo->prepare("SELECT idMouMoa, judul_kerjasama, namaInstansi, jenisKerjasama, DATE_FORMAT(awalKerjasama, '%d %M %Y') AS awalKerjasama, DATE_FORMAT(awalKerjasama, '%d %M %Y') AS akhirKerjasama, akhirKerjasama AS akhir
+                        $stmt = $pdo->prepare("SELECT idMouMoa, judul_kerjasama, namaInstansi, jenisKerjasama, DATE_FORMAT(awalKerjasama, '%d %M %Y') AS awalKerjasama, DATE_FORMAT(akhirKerjasama, '%d %M %Y') AS akhirKerjasama, akhirKerjasama AS akhir
                          FROM tb_mou_moa JOIN tb_mitra ON tb_mou_moa.idMouMoa = tb_mitra.idMitra ORDER BY awalKerjasama DESC");
                         $stmt->execute();
                         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -223,11 +236,11 @@ global $pdo;
                                 ?>
                                 <?= htmlspecialchars($ket, ENT_QUOTES, 'UTF-8') ?>
                             </td>
-                            <td><button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#<?= $row["idMouMoa"] ?>">Detail</button></td>
+                            <td><button class="btn btn-primary btn-sm btn-detail" data-bs-toggle="modal" data-bs-target="#<?= $row["idMouMoa"] ?>">Detail</button></td>
                         </tr>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="<?= $row["idMouMoa"] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal modal-lg fade" id="<?= $row["idMouMoa"] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -253,8 +266,12 @@ global $pdo;
                                         }
 
                                         foreach ($result as $kegiatan):
+                                            $foto = explode(",", $kegiatan["dokumentasi"]);
                                         ?>
                                             <p><?= $j . ". " . $kegiatan["kegiatan"] ?></p>
+                                            <?php foreach ($foto as $img): ?>
+                                                <img src="../uploads/images/<?= $img ?>" alt="" width="300px">
+                                            <?php endforeach; ?>
                                         <?php endforeach; ?>
                                     </div>
                                     <div class="modal-footer">

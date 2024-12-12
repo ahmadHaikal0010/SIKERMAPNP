@@ -26,7 +26,7 @@ body {
     text-decoration: none;
     padding: 15px;
     display: block;
-    font-weight: 600;
+    /* font-weight: 600; */
 }
 .sidebar a:hover {
     background-color: #ff9800;
@@ -56,7 +56,7 @@ body {
 .header {
     background-color: #343a40;
     color: white;
-    height: 70px;
+    height: 50px;
     padding: 10px 30px;
     display: flex;
     align-items: center;
@@ -112,12 +112,12 @@ footer {
     background-color: #343a40;
     color: white;
     text-align: center;
-    padding: 10px;
+    padding: 5px;
     position: fixed;
     bottom: 0;
     left: 200px;
     width: calc(100% - 200px);
-    font-size: 14px;
+    font-size: 11px;
 }
 
 .table-responsive {
@@ -202,7 +202,23 @@ footer {
 }
 
 .terbaru {
-    margin-bottom: 10px; /* Jarak antar elemen jika lebih spesifik */
+    /* margin-bottom: 10px;  Jarak antar elemen jika lebih spesifik */
     flex-direction: column;
     gap: 10px; /* Memberikan jarak antar elemen jika diperlukan */
+}
+
+.home-judul {
+    color: #FF7F50;
+}
+
+.home-isi {
+    font-size: smaller;
+}
+
+.user-color {
+    color: #A2A1A1;
+}
+
+.btn-detail {
+    background-color: #FFAB76;
 }
