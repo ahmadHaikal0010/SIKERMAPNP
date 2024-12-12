@@ -1,4 +1,4 @@
-body {
+.body-index {
     font-family: 'Poppins', sans-serif;
     background-color: #f8f9fa;
     margin: 0;
@@ -108,7 +108,7 @@ body {
 .profile-info small {
     font-size: 12px;
 }
-footer {
+.footer-index {
     background-color: #343a40;
     color: white;
     text-align: center;
@@ -221,4 +221,104 @@ footer {
 
 .btn-detail {
     background-color: #FFAB76;
+}
+
+
+/* General Styling */
+.body-landing {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Navigation Bar */
+.navbar-landing {
+    background-color: #343a40;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+.navbar-landing .logo {
+    font-size: 18px;
+    margin-left: 100px;
+    font-weight: bold;
+}
+
+.navbar-landing .menu {
+    display: flex;
+    gap: 20px;
+    margin-right: 100px;
+}
+
+.navbar-landing .menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* .navbar .menu a:hover {
+    text-decoration: underline;
+} */
+
+/* Hero Section */
+.hero {
+    background: url('../image/jabat.jpg') no-repeat center center/cover;
+    background-color: #F9C586;
+    height: 100vh;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 0px;
+    /* Adjust for navbar height */
+}
+
+.hero h1 {
+    font-size: 45px;
+    font-weight: bold;
+}
+
+/* Statistik Section */
+.stats {
+    background-color: #f57c00;
+    color: white;
+    padding: 2rem 0;
+}
+
+.stats h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Tabel Section */
+.table-section {
+    padding: 2rem 0;
+}
+
+.btn-detail-landing {
+    background-color: #ff914d;
+    border: none;
+}
+
+.btn-detail-landing:hover {
+    background-color: #e87d3c;
+}
+
+/* Footer */
+.footer-landing {
+    background-color: #343a40;
+    color: white;
+    text-align: left;
+    justify-content: center;
+    font-size: 15px;
+    padding: 4px;
 }

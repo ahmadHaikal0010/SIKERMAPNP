@@ -31,7 +31,7 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] === false) {
     <title>SIKERMA PNP</title>
 </head>
 
-<body>
+<body class="body-index">
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -152,7 +152,7 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] === false) {
     </div>
 
     <!-- Footer -->
-    <footer>
+    <footer class="footer-index">
         &copy; 2024 SIKERMA.
     </footer>
 

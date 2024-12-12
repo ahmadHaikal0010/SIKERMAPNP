@@ -4,6 +4,42 @@ session_start();
 include_once "../database/koneksi.php";
 
 global $pdo;
+
+try {
+    $stmt = $pdo->prepare("SELECT 
+                                        YEAR(awalKerjasama) AS tahun, 
+                                        jenisKerjasama,
+                                        COUNT(*) AS jumlahKerjasama
+                                    FROM 
+                                        tb_mou_moa
+                                    WHERE 
+                                        YEAR(awalKerjasama) BETWEEN YEAR(CURDATE()) - 10 AND YEAR(CURDATE())
+                                    GROUP BY 
+                                        YEAR(awalKerjasama), jenisKerjasama
+                                    ORDER BY 
+                                        tahun DESC, jenisKerjasama;
+                                    ");
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Gagal mengambil data: " . $e->getMessage();
+}
+
+$tahun  = [];
+$label = [];
+$jumlah = [];
+foreach ($result as $data) {
+    $tahun[] = $data["tahun"];
+    $label[] = $data["jenisKerjasama"];
+    $jumlah[] = $data["jumlahKerjasama"];
+}
+
+// Mengurutkan data berdasarkan tahun secara ascending
+array_multisort($tahun, SORT_ASC, $label, $jumlah);
+
+$tahun_json = json_encode($tahun);
+$label_json = json_encode($label);
+$jumlah_json = json_encode($jumlah);;
 ?>
 
 <!DOCTYPE html>
@@ -21,111 +57,15 @@ global $pdo;
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.0/css/buttons.bootstrap5.min.css">
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        /* General Styling */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8f9fa;
-        }
-
-        /* Navigation Bar */
-        .navbar {
-            background-color: #343a40;
-            color: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-        }
-
-        .navbar .logo {
-            font-size: 18px;
-            margin-left: 100px;
-            font-weight: bold;
-        }
-
-        .navbar .menu {
-            display: flex;
-            gap: 20px;
-            margin-right: 100px;
-        }
-
-        .navbar .menu a {
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        /* .navbar .menu a:hover {
-            text-decoration: underline;
-        } */
-
-        /* Hero Section */
-        .hero {
-            background: url('../assets/image/jabat.jpg') no-repeat center center/cover;
-            background-color: #F9C586;
-            height: 100vh;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            margin-top: 0px;
-            /* Adjust for navbar height */
-        }
-
-        .hero h1 {
-            font-size: 45px;
-            font-weight: bold;
-        }
-
-        /* Statistik Section */
-        .stats {
-            background-color: #f57c00;
-            color: white;
-            padding: 2rem 0;
-        }
-
-        .stats h3 {
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        /* Tabel Section */
-        .table-section {
-            padding: 2rem 0;
-        }
-
-        .btn-detail {
-            background-color: #ff914d;
-            border: none;
-        }
-
-        .btn-detail:hover {
-            background-color: #e87d3c;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #343a40;
-            color: white;
-            text-align: left;
-            justify-content: center;
-            font-size: 15px;
-            padding: 4px;
-        }
-    </style>
+    <!-- Chart JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <!-- CSS External -->
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
-<body>
+<body class="body-landing">
     <!-- Navigation Bar -->
-    <div class="navbar">
+    <div class="navbar-landing">
         <div class="logo">SIKERMA - PNP</div>
         <div class="menu">
             <a href="pengajuan.php">Ajukan Kerjasama</a>
@@ -180,10 +120,10 @@ global $pdo;
         <h2 class="text-center mb-4">Statistik Dokumen Kerjasama</h2>
         <div class="row">
             <div class="col-md-6">
-                <div id="chart-dokument-per-tahun"></div>
+                <canvas id="chart1"></canvas>
             </div>
             <div class="col-md-6">
-                <div id="chart-per-fakultas"></div>
+                <canvas id="chart2"></canvas>
             </div>
         </div>
     </div>
@@ -236,7 +176,7 @@ global $pdo;
                                 ?>
                                 <?= htmlspecialchars($ket, ENT_QUOTES, 'UTF-8') ?>
                             </td>
-                            <td><button class="btn btn-primary btn-sm btn-detail" data-bs-toggle="modal" data-bs-target="#<?= $row["idMouMoa"] ?>">Detail</button></td>
+                            <td><button class="btn btn-primary btn-sm btn-detail-landing" data-bs-toggle="modal" data-bs-target="#<?= $row["idMouMoa"] ?>">Detail</button></td>
                         </tr>
 
                         <!-- Modal -->
@@ -292,7 +232,7 @@ global $pdo;
     </div>
 
     <!-- Footer -->
-    <footer class="bg-green-unj bt-gold py-3">
+    <footer class="footer-landing bg-green-unj bt-gold py-3">
         <div class="container d-flex align-items-center justify-content-between px-4 px-lg-5">
             <div class="small text-white">
                 <span>Copyright &copy; 2024</span>
@@ -338,82 +278,151 @@ global $pdo;
     </script>
 
     <script>
-        // Grafik Statistik Dokumen Kerjasama Berdasarkan Tahun
-        var tahunOptions = {
-            series: [{
-                name: 'Dokumen Kerjasama',
-                data: [30, 40, 35, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140]
-            }],
-            chart: {
-                type: 'bar',
-                height: 350
-            },
-            xaxis: {
-                categories: ['2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024']
-            },
-            title: {
-                text: 'Grafik Distribusi Dokumen Kerjasama Per Tahun'
+        const ctx = document.getElementById('chart1').getContext('2d');
+        const ctx2 = document.getElementById('chart2').getContext('2d');
+
+        // Menyiapkan data untuk Chart.js
+        const tahun = <?= $tahun_json ?>;
+        const label = <?= $label_json ?>;
+        const jumlah = <?= $jumlah_json ?>;
+
+        // Mengelompokkan data berdasarkan jenisKerjasama
+        const dataMOU = [];
+        const dataMOA = [];
+
+        tahun.forEach((year, index) => {
+            if (label[index] === "mou") {
+                dataMOU.push(jumlah[index]);
+            } else if (label[index] === "moa") {
+                dataMOA.push(jumlah[index]);
             }
-        };
+        });
 
-        var chartDokumenTahun = new ApexCharts(document.querySelector("#chart-dokument-per-tahun"), tahunOptions);
-        chartDokumenTahun.render();
-
-        // Grafik Distribusi Dokumen Kerjasama Per Fakultas
-        var fakultasOptions = {
-            series: [{
-                name: 'Fakultas A',
-                data: [20, 30, 40, 50]
-            }, {
-                name: 'Fakultas B',
-                data: [10, 20, 30, 40]
-            }],
-            chart: {
-                type: 'bar',
-                height: 350
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [...new Set(tahun)], // Set untuk tahun yang unik
+                datasets: [{
+                        label: 'MOU',
+                        data: dataMOU,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'MOA',
+                        data: dataMOA,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderWidth: 2
+                    }
+                ]
             },
-            xaxis: {
-                categories: ['2020', '2021', '2022', '2023']
-            },
-            title: {
-                text: 'Grafik Distribusi Dokumen Kerjasama Per Fakultas'
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
+                    }
+                },
+                interaction: {
+                    mode: 'nearest',
+                    axis: 'x',
+                    intersect: false
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Jumlah'
+                        },
+                        ticks: {
+                            stepSize: 1, // Menetapkan langkah setiap label untuk angka bulat
+                            callback: function(value) {
+                                // Menghilangkan label desimal (menampilkan hanya angka bulat)
+                                if (value % 1 === 0) {
+                                    return value;
+                                }
+                            }
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Tahun'
+                        }
+                    }
+                }
             }
-        };
+        });
 
-        var chartFakultas = new ApexCharts(document.querySelector("#chart-per-fakultas"), fakultasOptions);
-        chartFakultas.render();
-
-        // Grafik Distribusi Klasifikasi Mitra Kerjasama
-        var klasifikasiOptions = {
-            series: [60, 40],
-            chart: {
-                type: 'pie',
-                height: 350
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: [...new Set(tahun)], // Set untuk tahun yang unik
+                datasets: [{
+                        label: 'MOU',
+                        data: dataMOU,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'MOA',
+                        data: dataMOA,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderWidth: 2
+                    }
+                ]
             },
-            labels: ['Internal', 'Eksternal'],
-            title: {
-                text: 'Grafik Distribusi Klasifikasi Mitra Kerjasama'
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
+                    }
+                },
+                interaction: {
+                    mode: 'nearest',
+                    axis: 'x',
+                    intersect: false
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Jumlah'
+                        },
+                        ticks: {
+                            stepSize: 1, // Menetapkan langkah setiap label untuk angka bulat
+                            callback: function(value) {
+                                // Menghilangkan label desimal (menampilkan hanya angka bulat)
+                                if (value % 1 === 0) {
+                                    return value;
+                                }
+                            }
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Tahun'
+                        }
+                    }
+                }
             }
-        };
-
-        var chartKlasifikasi = new ApexCharts(document.querySelector("#chart-klasifikasi-mitra"), klasifikasiOptions);
-        chartKlasifikasi.render();
-
-        // Grafik Distribusi Asal Negara Mitra Kerjasama
-        var negaraOptions = {
-            series: [70, 30],
-            chart: {
-                type: 'pie',
-                height: 350
-            },
-            labels: ['Indonesia', 'Internasional'],
-            title: {
-                text: 'Grafik Distribusi Asal Negara Mitra Kerjasama'
-            }
-        };
-
-        var chartNegara = new ApexCharts(document.querySelector("#chart-negara-mitra"), negaraOptions);
-        chartNegara.render();
+        });
     </script>
 </body>
 
