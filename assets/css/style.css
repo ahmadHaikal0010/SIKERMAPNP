@@ -14,6 +14,11 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    transition: all 0.3s;
+}
+.sidebar.collapsed {
+    width: 0;
+    overflow: hidden;
 }
 .sidebar h4 {
     text-align: center;
@@ -55,13 +60,14 @@
 }
 .header {
     background-color: #343a40;
+    width: 100%;
     color: white;
     height: 50px;
     padding: 10px 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-left: 200px;
+    /* margin-left: 200px; */
     position: sticky;
     top: 0;
     z-index: 1030;
@@ -135,9 +141,13 @@
 
 /* Main */
 .Main {
+    transition: margin-left 0.3s;
     margin-left: 190px;
     padding: 24px;
     padding-bottom: 100px;
+}
+.Main.collapsed {
+    margin-left: 0;
 }
 
 /* button aksi */

@@ -35,41 +35,10 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] === false) {
 
 <body class="body-index">
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <div>
-            <h4>SIKERMA</h4>
-
-            <?php
-            if ($_SESSION["login"]) {
-                if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin" || $_SESSION["role"] === "jurusan") {
-            ?>
-                    <a href="?action=home"><i class="bi bi-house-door me-2"></i> Home</a>
-                    <a href="?action=list_mou_moa"><i class="bi bi-bar-chart me-2"></i> Data MOU/MOA</a>
-                    <?php if ($_SESSION["role"] !== "jurusan"): ?>
-                        <a href="?action=list_kegiatan"><i class="bi bi-activity me-2"></i> Data Kegiatan</a>
-                        <a href="?action=list_mitra"><i class="bi bi-briefcase me-2"></i> Data Mitra</a>
-                        <?php if ($_SESSION["role"] === "super admin"): ?>
-                            <a href="?action=list_user"><i class="bi bi-person-lines-fill me-2"></i> Data Akun</a>
-                        <?php endif; ?>
-                        <?php endif; ?>
-                    <hr>
-                    <a href="view/auth/logout.php" onclick="return confirm('Apakah anda yakin mau keluar?')"><i class="bi bi-box-arrow-right me-2"></i> Logout</a>
-            <?php
-                }
-            }
-            ?>
-        </div>
-        <!-- <div class="help-box">
-            <h5>Need Help?</h5>
-            <p>Contact support:</p>
-            <a href="mailto:support@example.com">support@example.com</a>
-        </div> -->
-    </div>
-
     <!-- Header -->
     <div class="header">
-        <h5>Selamat Datang</h5>
+        <button class="btn btn-primary" id="toggleSidebar"><i class="bi bi-list"></i></button>
+        <h5>Dashboard</h5>
         <!-- <div class="search-bar">
             <input type="text" class="form-control" placeholder="Cari...">
             <i class="bi bi-search"></i>
@@ -91,8 +60,40 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] === false) {
         ?>
     </div>
 
+    <!-- Sidebar -->
+    <div class="sidebar collapsed" id="sidebar">
+        <div>
+            <h4>SIKERMA</h4>
+
+            <?php
+            if ($_SESSION["login"]) {
+                if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin" || $_SESSION["role"] === "jurusan") {
+            ?>
+                    <a href="?action=home"><i class="bi bi-house-door me-2"></i> Home</a>
+                    <a href="?action=list_mou_moa"><i class="bi bi-bar-chart me-2"></i> Data MOU/MOA</a>
+                    <?php if ($_SESSION["role"] !== "jurusan"): ?>
+                        <a href="?action=list_kegiatan"><i class="bi bi-activity me-2"></i> Data Kegiatan</a>
+                        <a href="?action=list_mitra"><i class="bi bi-briefcase me-2"></i> Data Mitra</a>
+                        <?php if ($_SESSION["role"] === "super admin"): ?>
+                            <a href="?action=list_user"><i class="bi bi-person-lines-fill me-2"></i> Data Akun</a>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                    <hr>
+                    <a href="view/auth/logout.php" onclick="return confirm('Apakah anda yakin mau keluar?')"><i class="bi bi-box-arrow-right me-2"></i> Logout</a>
+            <?php
+                }
+            }
+            ?>
+        </div>
+        <!-- <div class="help-box">
+            <h5>Need Help?</h5>
+            <p>Contact support:</p>
+            <a href="mailto:support@example.com">support@example.com</a>
+        </div> -->
+    </div>
+
     <!-- Main Content -->
-    <div class="Main">
+    <div class="Main collapsed" id="Main">
         <?php
         // Mengecek Level User
         if ($_SESSION["login"]) {
@@ -154,9 +155,9 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] === false) {
     </div>
 
     <!-- Footer -->
-    <footer class="footer-index">
+    <!-- <footer class="footer-index">
         &copy; 2024 SIKERMA.
-    </footer>
+    </footer> -->
 
     <!-- JS Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -178,6 +179,14 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] === false) {
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <!-- JS External -->
     <script type="module" src="assets/js/script.js"></script>
+    <script>
+        document.getElementById('toggleSidebar').addEventListener('click', function () {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('Main');
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('collapsed');
+        });
+    </script>
 </body>
 
 </html>
