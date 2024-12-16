@@ -28,6 +28,8 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] === false) {
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <!-- CSS External -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <title>SIKERMA PNP</title>
 </head>
 
@@ -172,6 +174,8 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] === false) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/vfs_fonts.min.js"></script>
     <!-- JS DataTables Responsive -->
     <script src="https://cdn.datatables.net/responsive/3.0.3/js/dataTables.responsive.min.js"></script>
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <!-- JS External -->
     <script type="module" src="assets/js/script.js"></script>
 </body>

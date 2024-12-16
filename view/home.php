@@ -149,7 +149,7 @@ include_once "Library/functions.php";
                                                                  DATE_FORMAT(akhirKerjasama, '%d %M %Y') AS akhirKerjasama
                                                           FROM tb_mou_moa 
                                                           WHERE akhirKerjasama BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 1 MONTH)
-                                                          ORDER BY akhirKerjasama DESC LIMIT 5");
+                                                          ORDER BY akhirKerjasama DESC");
                             $stmt->execute();
                             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         } catch (PDOException $e) {

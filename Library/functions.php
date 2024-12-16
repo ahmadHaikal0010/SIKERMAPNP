@@ -458,6 +458,8 @@ function sendEmail($data)
         <h6>Nomor MOU/MOA: ' . $data["nomorMouMoa"] . '</h6>
         <h6>Jenis Kerjasama: ' . $data["jenisKerjasama"] . '</h6>
         <h6>Judul Kerjasama: ' . $data["judul_kerjasama"] . '</h6>
+        <h6>Awal Kerjasama: '. $data["awalKerjasama"] .'</h6>
+        <h6>Akhir Kerjasama: '. $data["akhirKerjasama"] .'</h6>
         <h6>Nama Instansi: ' . $data["namaInstansi"] . '</h6>
         <h6>Topik Kerjasama: ' . $data["topik_kerjasama"] . '</h6>
     ';
