@@ -39,7 +39,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
             <?php
             $i = 1;
             try {
-                $stmt = $pdo->prepare("SELECT * FROM tb_kegiatan_kerjasama");
+                $stmt = $pdo->prepare("SELECT * FROM tb_kegiatan_kerjasama ORDER BY idKegiatan DESC");
                 $stmt->execute();
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             } catch (PDOException $e) {

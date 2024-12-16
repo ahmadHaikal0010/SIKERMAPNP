@@ -45,7 +45,7 @@ include_once "Library/functions.php";
         $jumlah_json = json_encode($jumlah);;
         ?>
         <div class="col-md-6">
-            <div class="card h-100">
+            <div class="card h-100 shadow">
                 <div class="card-body">
                     <h5 class="card-title home-judul">Statistik Ringkasan</h5>
                     <canvas id="myChart1"></canvas>
@@ -55,7 +55,7 @@ include_once "Library/functions.php";
 
         <!-- Daftar Pengajuan Baru -->
         <div class="col-md-6">
-            <div class="card h-100">
+            <div class="card h-100 shadow">
                 <div class="card-body">
                     <h5 class="card-title home-judul">Daftar Pengajuan Baru</h5>
                     <ul class="list-group">
@@ -94,7 +94,7 @@ include_once "Library/functions.php";
     <div class="row g-4 mt-4">
         <!-- Daftar Kerjasama Terbaru -->
         <div class="col-md-6">
-            <div class="card h-100">
+            <div class="card h-100 shadow">
                 <div class="card-body">
                     <h5 class="card-title home-judul">Daftar Kerjasama Terbaru</h5>
                     <div class="d-flex kontainer-column">
@@ -136,7 +136,7 @@ include_once "Library/functions.php";
 
         <!-- Daftar Kerjasama Yang Akan Berakhir -->
         <div class="col-md-6">
-            <div class="card h-100">
+            <div class="card h-100 shadow">
                 <div class="card-body">
                     <h5 class="card-title home-judul">Kerjasama Yang Akan Berakhir</h5>
                     <div class="d-flex kontainer-column">

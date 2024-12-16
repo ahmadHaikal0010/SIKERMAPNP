@@ -34,7 +34,7 @@ foreach ($result as $data);
 
 <div class="form-container">
     <h2 class="text-center mb-4">Ubah Data Kegiatan Yang Telah Dilaksanakan</h2>
-    <div class="form-card mx-auto col-md-8">
+    <div class="form-card mx-auto col-md-8 shadow">
         <form action="" method="POST" enctype="multipart/form-data">
             <!-- mou / moa -->
             <div class="mb-5">
