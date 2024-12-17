@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body class="login">
-    <div class="login-container">
+    <div class="login-container shadow">
         <h1 class="text-center mb-4">WELCOME!</h1>
         <p class="text-center mb-4">Sign in to continue</p>
         <form method="POST" action="login.php">

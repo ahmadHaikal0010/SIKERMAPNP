@@ -37,6 +37,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
                 <th>Jangka Waktu</th>
                 <th>Keterangan</th>
                 <th>Jurusan</th>
+                <th>Tindakan</th>
                 <th>Dokumen</th>
                 <th>Aksi</th>
             </tr>
@@ -69,6 +70,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
                         <?= htmlspecialchars($ket, ENT_QUOTES, 'UTF-8') ?>
                     </td>
                     <td><?= $row["jurusan"]; ?></td>
+                    <td><?= $row["tindakan"]; ?></td>
                     <td>
                         <div class="action-buttons-vertical">
                             <a href="uploads/documents/<?= $row["fileDokumen"] ?>" download=""><i class="btn btn-success bi bi-cloud-download"></i></a>

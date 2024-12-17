@@ -44,6 +44,7 @@ include_once "Library/functions.php";
         $label_json = json_encode($label);
         $jumlah_json = json_encode($jumlah);;
         ?>
+        
         <div class="col-md-6">
             <div class="card h-100 shadow">
                 <div class="card-body">

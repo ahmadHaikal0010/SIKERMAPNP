@@ -14,7 +14,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
                 </script>";
             } else {
                 echo "<script>
-                alert('Data gagal dihapus');
+                alert('Hapus data MOU/MOA yang berkaitan terlebih dahulu');
                 document.location.href = 'index.php?action=list_mitra';
                 </script>";
             }
