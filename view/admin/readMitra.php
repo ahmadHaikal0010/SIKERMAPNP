@@ -9,12 +9,12 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
         if (isset($_POST["delete"])) {
             if (deleteMitra($_POST["delete"])) {
                 echo "<script>
-                alert('Data berhasil dihapus');
+                alert('Data berhasil dihapus!');
                 document.location.href = 'index.php?action=list_mitra';
                 </script>";
             } else {
                 echo "<script>
-                alert('Hapus data MOU/MOA yang berkaitan terlebih dahulu');
+                alert('Hapus data MOU/MOA yang berkaitan terlebih dahulu!');
                 document.location.href = 'index.php?action=list_mitra';
                 </script>";
             }

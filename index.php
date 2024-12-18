@@ -45,7 +45,7 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] === false) {
         </div> -->
         <?php
         if ($_SESSION["login"]) {
-            if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
+            if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin" || $_SESSION["role"] === "jurusan") {
         ?>
                 <div class="profile-info">
                     <i class="bi bi-person-circle fs-3"></i>

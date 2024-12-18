@@ -25,11 +25,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION["login"] = true;
                 header("Location: ../../index.php?action=home");
                 exit;
-            }
-        }
-        echo "<script>
-                alert('Username atau Password salah');
+            } else {
+                echo "<script>
+                alert('Password salah!');
             </script>";
+            }
+        } else {
+            echo "<script>
+                alert('Username tidak ditemukan');
+            </script>";
+        }
     }
 }
 ?>

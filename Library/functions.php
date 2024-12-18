@@ -231,8 +231,12 @@ function deleteMouMoa($id)
 {
     global $pdo;
 
-    $stmt = $pdo->prepare("DELETE FROM tb_mou_moa WHERE idMouMoa = :id");
-    return $stmt->execute([":id" => $id]);
+    try {
+        $stmt = $pdo->prepare("DELETE FROM tb_mou_moa WHERE idMouMoa = :id");
+        return $stmt->execute([":id" => $id]);
+    } catch (PDOException $message) {
+        // echo "Gagal menghapus data: " . $message->getMessage();
+    }
 }
 
 // Create Kegiatan
