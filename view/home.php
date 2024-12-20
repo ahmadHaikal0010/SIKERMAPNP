@@ -12,7 +12,7 @@ include_once "Library/functions.php";
             $stmt = $pdo->prepare("SELECT 
                                                 YEAR(awalKerjasama) AS tahun, 
                                                 jenisKerjasama,
-                                                COUNT(*) AS jumlahKerjasama
+                                                COUNT(idMouMoa) AS jumlahKerjasama
                                             FROM 
                                                 tb_mou_moa
                                             WHERE 

@@ -9,7 +9,7 @@ try {
     $stmt = $pdo->prepare("SELECT 
                                         YEAR(awalKerjasama) AS tahun, 
                                         jenisKerjasama,
-                                        COUNT(*) AS jumlahKerjasama
+                                        COUNT(idMouMoa) AS jumlahKerjasama
                                     FROM 
                                         tb_mou_moa
                                     WHERE 
@@ -86,7 +86,7 @@ $jumlah_json = json_encode($jumlah);;
 
     <?php
     try {
-        $stmt = $pdo->prepare("SELECT COUNT(*) as jumlah, jenisKerjasama FROM tb_mou_moa GROUP BY jenisKerjasama");
+        $stmt = $pdo->prepare("SELECT COUNT(idMouMoa) as jumlah, jenisKerjasama FROM tb_mou_moa GROUP BY jenisKerjasama");
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
@@ -145,20 +145,20 @@ $jumlah_json = json_encode($jumlah);;
                         <th>Detail</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <?php
-                    $i = 1;
-                    try {
-                        $stmt = $pdo->prepare("SELECT idMouMoa, judul_kerjasama, namaInstansi, jenisKerjasama, DATE_FORMAT(awalKerjasama, '%d %M %Y') AS awalKerjasama, DATE_FORMAT(akhirKerjasama, '%d %M %Y') AS akhirKerjasama, akhirKerjasama AS akhir
-                         FROM tb_mou_moa JOIN tb_mitra ON tb_mou_moa.idMouMoa = tb_mitra.idMitra ORDER BY awalKerjasama DESC");
-                        $stmt->execute();
-                        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                    } catch (PDOException $e) {
-                        echo "Gagal mengambil data: " . $e->getMessage();
-                    }
+                <?php
+                $i = 1;
+                try {
+                    $stmt = $pdo->prepare("SELECT idMouMoa, judul_kerjasama, namaInstansi, jenisKerjasama, DATE_FORMAT(awalKerjasama, '%d %M %Y') AS awalKerjasama, DATE_FORMAT(akhirKerjasama, '%d %M %Y') AS akhirKerjasama, akhirKerjasama AS akhir
+                         FROM tb_mou_moa JOIN tb_mitra ON tb_mou_moa.mitra_idMitra = tb_mitra.idMitra ORDER BY idMouMoa DESC");
+                    $stmt->execute();
+                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                } catch (PDOException $e) {
+                    echo "Gagal mengambil data: " . $e->getMessage();
+                }
 
-                    foreach ($result as $row):
-                    ?>
+                foreach ($result as $row):
+                ?>
+                    <tbody>
                         <tr>
                             <td><?= $i ?></td>
                             <td><?= $row["namaInstansi"] ?></td>
@@ -198,7 +198,7 @@ $jumlah_json = json_encode($jumlah);;
                                         <?php
                                         $j = 1;
                                         try {
-                                            $stmt = $pdo->prepare("SELECT * FROM tb_kegiatan_kerjasama JOIN tb_mou_moa ON tb_kegiatan_kerjasama.idKegiatan = tb_mou_moa.idMouMoa WHERE tb_mou_moa_idMouMoa = :id");
+                                            $stmt = $pdo->prepare("SELECT dokumentasi, kegiatan FROM tb_kegiatan_kerjasama JOIN tb_mou_moa ON tb_kegiatan_kerjasama.idKegiatan = tb_mou_moa.idMouMoa WHERE tb_mou_moa_idMouMoa = :id");
                                             $stmt->execute([":id" => $row["idMouMoa"]]);
                                             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                         } catch (PDOException $e) {
@@ -223,10 +223,10 @@ $jumlah_json = json_encode($jumlah);;
                         </div>
 
                     <?php
-                        $i++;
-                    endforeach;
+                    $i++;
+                endforeach;
                     ?>
-                </tbody>
+                    </tbody>
             </table>
         </div>
     </div>

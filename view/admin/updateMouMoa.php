@@ -22,7 +22,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
 }
 
 try {
-    $stmt = $pdo->prepare("SELECT * FROM tb_mou_moa WHERE idMouMoa = :idMouMoa");
+    $stmt = $pdo->prepare("SELECT nomorMouMoa, jenisKerjasama, judul_kerjasama, awalKerjasama, akhirKerjasama, tindakan, jurusan, topik_kerjasama, fileDokumen, mitra_idMitra FROM tb_mou_moa WHERE idMouMoa = :idMouMoa");
     $stmt->execute([":idMouMoa" => $_GET["idMouMoa"]]);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
@@ -38,12 +38,12 @@ if ($row["jurusan"] !== "General") {
 ?>
 
 <div class="form-container">
-    <h2 class="text-center mb-4">Ubah Data MOU/MOA</h2>
+    <h2 class="text-center mb-4">Ubah Data MoU & MoA</h2>
     <div class="form-card mx-auto col-md-8 shadow">
         <form action="" method="POST" enctype="multipart/form-data">
             <!-- nomor mou moa -->
             <div class="mb-4">
-                <label for="nomorMou" class="form-label">Nomor MOU/MOA</label>
+                <label for="nomorMou" class="form-label">Nomor MoU & MoA</label>
                 <input type="text" id="nomorMou" name="nomorMou" class="form-control" value="<?= $row["nomorMouMoa"] ?>" required>
             </div>
             <!-- jenis kerjasama -->
@@ -61,6 +61,25 @@ if ($row["jurusan"] !== "General") {
                         MOA
                     </label>
                 </div>
+            </div>
+            <!-- mitra -->
+            <div class="mb-5">
+                <label for="mitra" class="form-label">Mitra</label>
+                <select name="mitra_idMitra" id="mitra_idMitra" class="form-select">
+                    <option value="" selected disabled>Mitra</option>
+                    <?php
+                    $stmt = $pdo->prepare("SELECT idMitra, namaInstansi FROM tb_mitra");
+                    $stmt->execute();
+                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                    foreach ($result as $rows):
+                        $selected = ($rows["idMitra"] == $row["mitra_idMitra"]) ? "selected" : "";
+                    ?>
+                        <option value="<?= $rows["idMitra"] ?>" <?= $selected ?>><?= $rows["namaInstansi"] ?></option>
+                    <?php
+                    endforeach;
+                    ?>
+                </select>
             </div>
             <!-- judul kerjasama -->
             <div class="mb-4">
@@ -137,25 +156,6 @@ if ($row["jurusan"] !== "General") {
             <div class="mb-4">
                 <label for="fileDokumen" class="form-label">File Dokumen Kerjasama</label>
                 <input type="file" name="fileDokumen" id="fileDokumen" class="form-control">
-            </div>
-            <!-- mitra -->
-            <div class="mb-5">
-                <label for="mitra" class="form-label">Mitra</label>
-                <select name="mitra_idMitra" id="mitra_idMitra" class="form-select">
-                    <option value="" selected disabled>Mitra</option>
-                    <?php
-                    $stmt = $pdo->prepare("SELECT idMitra, namaInstansi FROM tb_mitra");
-                    $stmt->execute();
-                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                    foreach ($result as $rows):
-                        $selected = ($rows["idMitra"] == $row["mitra_idMitra"]) ? "selected" : "";
-                    ?>
-                        <option value="<?= $rows["idMitra"] ?>" <?= $selected ?>><?= $rows["namaInstansi"] ?></option>
-                    <?php
-                    endforeach;
-                    ?>
-                </select>
             </div>
             <input type="number" name="user_idAkun" value="<?= $_SESSION["id"] ?>" hidden>
             <input type="text" name="fileLama" value="<?= $row["fileDokumen"] ?>" hidden>

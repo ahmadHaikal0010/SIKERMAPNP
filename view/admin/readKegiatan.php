@@ -39,7 +39,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
             <?php
             $i = 1;
             try {
-                $stmt = $pdo->prepare("SELECT * FROM tb_kegiatan_kerjasama ORDER BY idKegiatan DESC");
+                $stmt = $pdo->prepare("SELECT idKegiatan, kegiatan, deskripsi, dokumentasi FROM tb_kegiatan_kerjasama ORDER BY idKegiatan DESC");
                 $stmt->execute();
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             } catch (PDOException $e) {
@@ -74,7 +74,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
                 </tr>
 
                 <!-- Modal -->
-                <div class="modal fade" id="<?= $row["idKegiatan"] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal modal-lg fade" id="<?= $row["idKegiatan"] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">

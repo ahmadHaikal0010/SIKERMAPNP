@@ -23,7 +23,7 @@ if ($_SESSION["role"] === "super admin") {
 
 
 try {
-    $stmt = $pdo->prepare("SELECT * FROM tb_user WHERE idAkun = :idAkun");
+    $stmt = $pdo->prepare("SELECT namaUser, emailUser, username, role FROM tb_user WHERE idAkun = :idAkun");
     $stmt->execute([":idAkun" => $_GET["idAkun"]]);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
@@ -55,12 +55,12 @@ foreach ($result as $row);
             <!-- password -->
             <div class="mb-4">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" id="password" name="password" class="form-control" value="<?= password_verify($row["password"], PASSWORD_DEFAULT) ?>">
+                <input type="password" id="password" name="password" class="form-control">
             </div>
             <!-- confirm password -->
             <div class="mb-4">
                 <label for="password2" class="form-label">Confirm Password</label>
-                <input type="password" id="password2" name="password2" class="form-control" value="<?= password_verify($row["password"], PASSWORD_DEFAULT) ?>">
+                <input type="password" id="password2" name="password2" class="form-control">
             </div>
             <!-- role -->
             <div class="mb-5">

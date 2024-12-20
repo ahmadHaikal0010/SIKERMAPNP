@@ -70,7 +70,7 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] === false) {
                 if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin" || $_SESSION["role"] === "jurusan") {
             ?>
                     <a href="?action=home"><i class="bi bi-house-door me-2"></i> Home</a>
-                    <a href="?action=list_mou_moa"><i class="bi bi-bar-chart me-2"></i> Data MOU/MOA</a>
+                    <a href="?action=list_mou_moa"><i class="bi bi-bar-chart me-2"></i> Data MoU & MoA</a>
                     <?php if ($_SESSION["role"] !== "jurusan"): ?>
                         <a href="?action=list_kegiatan"><i class="bi bi-activity me-2"></i> Data Kegiatan</a>
                         <a href="?action=list_mitra"><i class="bi bi-briefcase me-2"></i> Data Mitra</a>

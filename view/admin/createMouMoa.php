@@ -25,12 +25,12 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
 ?>
 
 <div class="form-container">
-    <h2 class="text-center mb-4">Tambah Data MOU/MOA</h2>
+    <h2 class="text-center mb-4">Tambah Data MoU & MoA</h2>
     <div class="form-card mx-auto col-md-8 shadow">
         <form action="" method="POST" enctype="multipart/form-data">
             <!-- nomor mou moa -->
             <div class="mb-4">
-                <label for="nomorMou" class="form-label">Nomor MOU/MOA</label>
+                <label for="nomorMou" class="form-label">Nomor MoU & MoA</label>
                 <input type="text" id="nomorMou" name="nomorMou" class="form-control" required>
             </div>
             <!-- jenis kerjasama -->
@@ -48,6 +48,24 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
                         MOA
                     </label>
                 </div>
+            </div>
+            <!-- mitra -->
+            <div class="mb-5">
+                <label for="mitra_idMitra" class="form-label">Mitra</label>
+                <select name="mitra_idMitra" id="mitra_idMitra" class="form-select" required>
+                    <option value="" selected disabled>Mitra</option>
+                    <?php
+                    $stmt = $pdo->prepare("SELECT idMitra, namaInstansi FROM tb_mitra");
+                    $stmt->execute();
+                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                    foreach ($result as $row):
+                    ?>
+                        <option value="<?= $row["idMitra"] ?>"><?= $row["namaInstansi"] ?></option>
+                    <?php
+                    endforeach;
+                    ?>
+                </select>
             </div>
             <!-- judul kerjasama -->
             <div class="mb-4">
@@ -123,25 +141,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
             <!-- file dokumen kerjasama -->
             <div class="mb-4">
                 <label for="fileDokumen" class="form-label">File Dokumen Kerjasama</label>
-                <input type="file" name="fileDokumen" id="fileDokumen" class="form-control" required>
-            </div>
-            <!-- mitra -->
-            <div class="mb-5">
-                <label for="mitra_idMitra" class="form-label">Mitra</label>
-                <select name="mitra_idMitra" id="mitra_idMitra" class="form-select" required>
-                    <option value="" selected disabled>Mitra</option>
-                    <?php
-                    $stmt = $pdo->prepare("SELECT idMitra, namaInstansi FROM tb_mitra");
-                    $stmt->execute();
-                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                    foreach ($result as $row):
-                    ?>
-                        <option value="<?= $row["idMitra"] ?>"><?= $row["namaInstansi"] ?></option>
-                    <?php
-                    endforeach;
-                    ?>
-                </select>
+                <input type="file" name="fileDokumen" id="fileDokumen" class="form-control">
             </div>
             <input type="number" name="user_idAkun" value="<?= $_SESSION["id"] ?>" hidden>
             <button type="submit" name="submit" class="btn btn-primary w-30">Submit</button>

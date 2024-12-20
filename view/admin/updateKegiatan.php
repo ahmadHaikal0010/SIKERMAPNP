@@ -22,7 +22,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
 }
 
 try {
-    $stmt = $pdo->prepare("SELECT * FROM tb_kegiatan_kerjasama WHERE idKegiatan = :idKegiatan");
+    $stmt = $pdo->prepare("SELECT kegiatan, deskripsi, dokumentasi, tb_mou_moa_idMouMoa FROM tb_kegiatan_kerjasama WHERE idKegiatan = :idKegiatan");
     $stmt->execute([":idKegiatan" => $_GET["idKegiatan"]]);
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
