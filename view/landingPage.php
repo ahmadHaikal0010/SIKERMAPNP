@@ -145,20 +145,20 @@ $jumlah_json = json_encode($jumlah);;
                         <th>Detail</th>
                     </tr>
                 </thead>
-                <?php
-                $i = 1;
-                try {
-                    $stmt = $pdo->prepare("SELECT idMouMoa, judul_kerjasama, namaInstansi, jenisKerjasama, DATE_FORMAT(awalKerjasama, '%d %M %Y') AS awalKerjasama, DATE_FORMAT(akhirKerjasama, '%d %M %Y') AS akhirKerjasama, akhirKerjasama AS akhir
+                <tbody>
+                    <?php
+                    $i = 1;
+                    try {
+                        $stmt = $pdo->prepare("SELECT idMouMoa, judul_kerjasama, namaInstansi, jenisKerjasama, DATE_FORMAT(awalKerjasama, '%d %M %Y') AS awalKerjasama, DATE_FORMAT(akhirKerjasama, '%d %M %Y') AS akhirKerjasama, akhirKerjasama AS akhir
                          FROM tb_mou_moa JOIN tb_mitra ON tb_mou_moa.mitra_idMitra = tb_mitra.idMitra ORDER BY idMouMoa DESC");
-                    $stmt->execute();
-                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                } catch (PDOException $e) {
-                    echo "Gagal mengambil data: " . $e->getMessage();
-                }
+                        $stmt->execute();
+                        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    } catch (PDOException $e) {
+                        echo "Gagal mengambil data: " . $e->getMessage();
+                    }
 
-                foreach ($result as $row):
-                ?>
-                    <tbody>
+                    foreach ($result as $row):
+                    ?>
                         <tr>
                             <td><?= $i ?></td>
                             <td><?= $row["namaInstansi"] ?></td>
@@ -221,12 +221,11 @@ $jumlah_json = json_encode($jumlah);;
                                 </div>
                             </div>
                         </div>
-
                     <?php
-                    $i++;
-                endforeach;
+                        $i++;
+                    endforeach;
                     ?>
-                    </tbody>
+                </tbody>
             </table>
         </div>
     </div>
