@@ -61,7 +61,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
             <!-- dokumentasi -->
             <div class="mb-4">
                 <label for="dokumentasi" class="form-label">Dokumentasi</label>
-                <input type="file" name="dokumentasi[]" id="dokumentasi" class="form-control" multiple>
+                <input type="file" name="dokumentasi[]" id="dokumentasi" class="form-control" accept="image/*" multiple>
             </div>
             <button type="submit" name="submit" class="btn btn-primary w-30">Submit</button>
         </form>

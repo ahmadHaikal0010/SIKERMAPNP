@@ -141,7 +141,7 @@ if ($_SESSION["role"] === "super admin" || $_SESSION["role"] === "admin") {
             <!-- file dokumen kerjasama -->
             <div class="mb-4">
                 <label for="fileDokumen" class="form-label">File Dokumen Kerjasama</label>
-                <input type="file" name="fileDokumen" id="fileDokumen" class="form-control">
+                <input type="file" name="fileDokumen" id="fileDokumen" class="form-control" accept=".pdf, .doc, .docx">
             </div>
             <input type="number" name="user_idAkun" value="<?= $_SESSION["id"] ?>" hidden>
             <button type="submit" name="submit" class="btn btn-primary w-30">Submit</button>
