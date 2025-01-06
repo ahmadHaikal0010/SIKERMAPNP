@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 13, 2024 at 01:26 AM
+-- Generation Time: Jan 06, 2025 at 12:35 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.3.12
 
@@ -29,21 +29,13 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `tb_kegiatan_kerjasama` (
   `idKegiatan` int NOT NULL,
-  `kegiatan` varchar(50) DEFAULT NULL,
-  `deskripsi` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `dokumentasi` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci,
+  `kegiatan` varchar(100) DEFAULT NULL,
+  `deskripsi` varchar(200) DEFAULT NULL,
+  `dokumentasi` text,
   `tb_mou_moa_idMouMoa` int NOT NULL,
   `tb_mou_moa_mitra_idMitra` int NOT NULL,
   `tb_mou_moa_user_idAkun` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
---
--- Dumping data for table `tb_kegiatan_kerjasama`
---
-
-INSERT INTO `tb_kegiatan_kerjasama` (`idKegiatan`, `kegiatan`, `deskripsi`, `dokumentasi`, `tb_mou_moa_idMouMoa`, `tb_mou_moa_mitra_idMitra`, `tb_mou_moa_user_idAkun`) VALUES
-(16, 'NGUWAWOR', 'ABCD', '67582824e511a.jpg,67582824e54e9.jpg,67582824e5954.jpg,67582824e5c40.jpg', 14, 4, 2),
-(17, 'ASDF', 'JKL', '67584285c044e.jpg,67584285c07ff.jpg,67584285c0a5d.jpg', 18, 18, 2);
 
 -- --------------------------------------------------------
 
@@ -53,13 +45,13 @@ INSERT INTO `tb_kegiatan_kerjasama` (`idKegiatan`, `kegiatan`, `deskripsi`, `dok
 
 CREATE TABLE `tb_mitra` (
   `idMitra` int NOT NULL,
-  `namaInstansi` varchar(50) DEFAULT NULL,
+  `namaInstansi` varchar(70) DEFAULT NULL,
   `namaPimpinan` varchar(30) DEFAULT NULL,
-  `alamatMitra` varchar(50) DEFAULT NULL,
-  `emailMitra` varchar(30) DEFAULT NULL,
-  `teleponMitra` varchar(20) DEFAULT NULL,
-  `bidangUsaha` varchar(40) DEFAULT NULL,
-  `websiteMitra` varchar(50) DEFAULT NULL,
+  `alamatMitra` varchar(200) DEFAULT NULL,
+  `emailMitra` varchar(90) DEFAULT NULL,
+  `teleponMitra` varchar(90) DEFAULT NULL,
+  `bidangUsaha` varchar(50) DEFAULT NULL,
+  `websiteMitra` varchar(140) DEFAULT NULL,
   `provinsi` varchar(50) DEFAULT NULL,
   `kota` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
@@ -69,28 +61,43 @@ CREATE TABLE `tb_mitra` (
 --
 
 INSERT INTO `tb_mitra` (`idMitra`, `namaInstansi`, `namaPimpinan`, `alamatMitra`, `emailMitra`, `teleponMitra`, `bidangUsaha`, `websiteMitra`, `provinsi`, `kota`) VALUES
-(1, 'semen padang', 'semen', 'padang', 'semen@gmail.com', '1234567890', 'infrastruktur', '', 'sumatera barat', 'padang'),
-(4, 'AMD', 'amd', 'lubuk basung, agam', 'amd@gmail.com', '2554', 'Teknologi', '', 'jawa', 'bandung'),
-(5, 'Instansi A', 'Pimpinan A', 'Alamat A', 'emaila@example.com', '081234567890', 'IT', 'www.instansia.com', 'Jawa Barat', 'Bandung'),
-(6, 'Instansi B', 'Pimpinan B', 'Alamat B', 'emailb@example.com', '081234567891', 'Finance', 'www.instansib.com', 'DKI Jakarta', 'Jakarta'),
-(7, 'Instansi C', 'Pimpinan C', 'Alamat C', 'emailc@example.com', '081234567892', 'Healthcare', 'www.instansic.com', 'Jawa Tengah', 'Semarang'),
-(8, 'Instansi D', 'Pimpinan D', 'Alamat D', 'emaild@example.com', '081234567893', 'Education', 'www.instansid.com', 'Yogyakarta', 'Yogyakarta'),
-(9, 'Instansi E', 'Pimpinan E', 'Alamat E', 'emaile@example.com', '081234567894', 'Retail', 'www.instansie.com', 'Jawa Timur', 'Surabaya'),
-(10, 'Instansi F', 'Pimpinan F', 'Alamat F', 'emailf@example.com', '081234567895', 'Manufacturing', 'www.instansif.com', 'Sumatera Utara', 'Medan'),
-(11, 'Instansi G', 'Pimpinan G', 'Alamat G', 'emailg@example.com', '081234567896', 'Logistics', 'www.instansig.com', 'Bali', 'Denpasar'),
-(12, 'Instansi H', 'Pimpinan H', 'Alamat H', 'emailh@example.com', '081234567897', 'Tourism', 'www.instansih.com', 'Nusa Tenggara Barat', 'Mataram'),
-(13, 'Instansi I', 'Pimpinan I', 'Alamat I', 'emaili@example.com', '081234567898', 'Real Estate', 'www.instansii.com', 'Kalimantan Timur', 'Balikpapan'),
-(14, 'Instansi J', 'Pimpinan J', 'Alamat J', 'emailj@example.com', '081234567899', 'Energy', 'www.instansij.com', 'Papua', 'Jayapura'),
-(15, 'Instansi K', 'Pimpinan K', 'Alamat K', 'emailk@example.com', '081234567800', 'Automotive', 'www.instansik.com', 'Sulawesi Selatan', 'Makassar'),
-(16, 'Instansi L', 'Pimpinan L', 'Alamat L', 'emaill@example.com', '081234567801', 'Food & Beverage', 'www.instansil.com', 'Riau', 'Pekanbaru'),
-(17, 'Instansi M', 'Pimpinan M', 'Alamat M', 'emailm@example.com', '081234567802', 'Telecommunications', 'www.instansim.com', 'Aceh', 'Banda Aceh'),
-(18, 'Instansi N', 'Pimpinan N', 'Alamat N', 'emailn@example.com', '081234567803', 'Construction', 'www.instansin.com', 'Banten', 'Serang'),
-(19, 'Instansi O', 'Pimpinan O', 'Alamat O', 'emailo@example.com', '081234567804', 'Agriculture', 'www.instansio.com', 'Lampung', 'Bandar Lampung'),
-(20, 'Instansi P', 'Pimpinan P', 'Alamat P', 'emailp@example.com', '081234567805', 'Media', 'www.instansip.com', 'Jambi', 'Jambi'),
-(21, 'Instansi Q', 'Pimpinan Q', 'Alamat Q', 'emailq@example.com', '081234567806', 'Pharmaceutical', 'www.instansiq.com', 'Sumatera Selatan', 'Palembang'),
-(22, 'Instansi R', 'Pimpinan R', 'Alamat R', 'emailr@example.com', '081234567807', 'Legal', 'www.instansir.com', 'Maluku', 'Ambon'),
-(23, 'Instansi S', 'Pimpinan S', 'Alamat S', 'emails@example.com', '081234567808', 'Consulting', 'www.instansis.com', 'Sulawesi Utara', 'Manado'),
-(24, 'Instansi T', 'Pimpinan T', 'Alamat T', 'emailt@example.com', '081234567809', 'E-commerce', 'www.instansit.com', 'Kalimantan Barat', 'Pontianak');
+(1, 'PEMERINTAH NAGARI TANJUNG BONAI AUR', NULL, '', '', '', 'PEMERINTAHAN', '', 'SUMATERA BARAT', 'SIJUNJUNG'),
+(2, 'PEMERINTAH NAGARI BATU TABA', NULL, '', '', '', 'PEMERINTAH NAGARI', '', 'SUMATERA BARAT', 'AGAM'),
+(3, 'PEMERINTAH NAGARI PANAMPUANG', NULL, 'Jln. Raya Biaro-Koto Baru Km.2 Pakan Kaluang Jorong Surau Lauik, Nagari Panampuang., Kec. Ampek Angkek, Kab. Agam\r\n', 'Nagaripanampuang@gmail.com', '(0752)426767', 'PEMERINTAH NAGARI', 'https://panampuang.id/', 'SUMATERA BARAT', 'AGAM'),
+(4, 'AKADEMI PARIWISATA BUNDA', NULL, 'Jl. Arif Rahman Hakim No.57 Padang - Sumatera Barat.', 'info@akparbundapadang.ac.id', '(0751)34212', 'PENDIDIKAN', 'https://www.akparbundapadang.ac.id/', 'SUMATERA BARAT', 'PADANG'),
+(5, 'PEMERINTAH KOTA PADANG', NULL, '\"Jl. Bagindo Azis Chan No. 1, Aie Pacah - Kota Padang, Sumatera Barat', 'diskominfo@padang.go.id', '0751 4640800', 'PEMERINTAH', 'https://padang.go.id/', 'SUMATERA BARAT', 'PADANG'),
+(6, 'BALAI PENERAPAN TEKNOLOGI KONSTRUKSI KEMENTERIAN PU', NULL, '', 'portaldjbk@pu.go.id', '', 'KONSTRUKSI', '', 'SUMATERA BARAT', 'JAKARTA'),
+(8, 'SMA NEGERI 5 BUKITTINGGI', NULL, 'Jl. Nj Dt Mangkuto Ameh Kec. Mandiangin Koto Selayan, Kota Bukittinggi - Sumatera Barat', 'sman5bukittinggi@gmail.com', '(0752) 34099', 'PENDIDIKAN', 'https://www.sman5bukittinggi.sch.id/', 'SUMATERA BARAT', 'BUKITTINGGI'),
+(9, 'KOMINFO', NULL, 'Jl. Medan Merdeka Barat no. 9, Jakarta 10110', 'humas@mail.kominfo.go.id', '(021) 345284', 'Pemerintah (Informasi)', 'https://www.kominfo.go.id/', 'Jakarta Pusat', 'Jakarta'),
+(10, 'DINAS KOPERASI DAN UMKM SUMATERA BARAT', NULL, 'Jl. Khatib Sulaiman No. 11 Padang, Sumatera Barat 27113', 'diskop@sumbarprov.go.id', '0751 - 7055292 - 7055298 - 443200', 'USAHA KOPERASI', 'https://diskopukm.sumbarprov.go.id/', 'SUMATERA BARAT', 'PADANG'),
+(11, 'POLITEKNIK NEGERI PONTIANAK', NULL, 'Jl. Jenderal Ahmad Yani, Bansir Laut, Pontianak Tenggara, Kota Pontianak, Kalimantan Barat, 78124', 'kampus@polnep.ac.id', '561736180 or whatsapp:+6281256074059', 'PENDIDIKAN', 'https://polnep.ac.id/page/polnep-s-profile', 'KALIMANTAN BARAT', 'PONTIANAK'),
+(12, 'STMIK HANG TUAH PEKANBARU', NULL, 'Jl. Mustafa Sari No. 5, Tangkerang Selatan, Pekanbaru, Riau-28288', 'universitas@htp.ac.id', '(0761) 571524', 'PENDIDIKAN', 'https://htp.ac.id/', 'RIAU', 'PEKANBARU'),
+(13, 'STMIK JAYANUSA PADANG', NULL, 'Jl. Damar No.69 E Padang, Sumatera Barat', 'jayanusa@jayanusa.ac.id', '0751-28984, 08116650635', 'PENDIDIKAN', 'https://jayanusa.ac.id/', 'SUMATERA BARAT', 'PADANG'),
+(14, 'AMIK JAYANUSA PADANG', NULL, 'Jl. Damar No.69 E Padang, Sumatera Barat', 'jayanusa@jayanusa.ac.id', '0751-28984, 08116650635', 'PENDIDIKAN', 'https://jayanusa.ac.id/', 'SUMATERA BARAT', 'PADANG'),
+(15, 'SEKOLAH TINGGI ILMU EKONOMI HAJI AGUS SALIM', NULL, 'Jalan Bahder Johan 26136 Bukittinggi Sumatera Barat · ~69,6 km', ' itbhasbkt@gmail.com', '(0752)34201 / +62 812 1234 0990 / itbhasbkt@gmail.com', 'PENDIDIKAN', 'http://www.itbhas.ac.id/', 'SUMATERA BARAT', 'BUKITTINGGI'),
+(16, 'SEKOLAH TINGGI TEKNOLOGI INDUSTRI', NULL, NULL, NULL, NULL, 'PENDIDIKAN', 'https://sttind.ac.id/', 'SUMATERA BARAT', 'PADANG'),
+(17, 'FAKULTAS TEKNIK UNIVERSITAS PAMULANG', NULL, 'Kampus Pusat : Jl. Surya Kencana No.1, Pamulang Bar., Kec. Pamulang, Kota Tangerang Selatan, Banten 15417', 'humas@unpam.ac.id', '(021) 7412566 / 74709855', 'PENDIDIKAN', 'https://unpam.ac.id/fakultas-teknik/', 'BANTEN', 'TANGERANG'),
+(18, 'PT PLN (PERSERO) UPK TELUK SIRIH', NULL, 'Desa Teluk Sirih, RT001/RW004, Kel.. Teluk Kabung Tengah, Kec. Bungus Teluk Kabung, Kota Padang, Prov. Sumatera Barat.', '\"pln123@pln.co.id\r\n 	pln123_official\"', '(0751) 4650089', 'LISTRIK NEGARA', 'https://web.pln.co.id/', 'SUMATERA BARAT', 'PADANG'),
+(19, 'GRAND ZURI HOTEL', NULL, '\"Jalan M. Thamrin No.27, Padang 25211\r\nSumatera Barat, Indonesia\"', 'reserservation@premierehotelpadang.com', '+62 751 894 888', 'PERHOTELAN', 'http://www.zhmhotels.com/hotel/the-zhm-premiere-padang/', 'SUMATERA BARAT', 'PADANG'),
+(20, 'KAWANA HOTEL', NULL, '\"Jl. MH. Thamrin No. 71 Kelurahan Ranah Parak Rumbio, Padang Selatan, Kota Padang - Sumatera Barat 25212\r\nIndonesia.\"\r\n', 'nfo@kawanahotel.co.id', '+62 (751) 890777 or WhatsaApp : +62 811 666 0117', 'PERHOTELAN', 'https://www.kawanahotel.co.id/', 'SUMATERA BARAT', 'PADANG'),
+(21, 'ASTRA DAIHATSU SUMBAR', NULL, 'Jl. Khatib Sulaiman No.101, Ulakkarang Utara, Padang Utara, Padang, Sumatera Barat, 25133', 'cs@dso.astra.co.id', ' (0751)7052222', 'PERDAGANGAN MOBIL', 'https://www.astra-daihatsu.id/', 'SUMATERA BARAT', 'PADANG'),
+(22, 'PT MEDIA INDOTAMA EXPO', NULL, 'Indonesia Stock Exchange Tower 1 Level 3-04, SCBD\r\nJakarta Selatan 12190', 'hello@kolegal.id', '0817-325-600 or Whatsapp: 0817-325-600', 'PENDIDIKAN DAN PELATIHAN', 'https://kolegal.id/media-indotama-expo', 'SUMATERA BARAT', 'PADANG'),
+(23, 'INNER DRIVE', NULL, 'United Kingdom', 'info@innerdrive.co.uk', '+44 208 693 3191', 'PENDIDIKAN, BISNIS AND SPORT', 'https://www.innerdrive.co.uk/contact/', 'SUMATERA BARAT', 'PADANG'),
+(24, 'SMK NEGERI 5 PAYAKUMBUH', NULL, 'PJJ3+PC4 Tangah Padang Indah, Situjuah Banda Dalam, Kec. Situjuah Limo Nagari, Kota Payakumbuh, Sumatera Barat 26225', NULL, '\r\n\r\n', 'PENDIDIKAN', 'https://ppid.sma5pyk.sch.id/profil-sekolah//', 'SUMATERA BARAT', 'PAYAKUMBUH'),
+(25, 'HIMPUNAN AHLI TEKNIK HIDRAULIK INDONESIA', NULL, 'Gedung Dit.Jend. SDA, Lt. 8, Kementerian PUPR Jl Pattimura No. 20, Jakarta', 'hathi.pusat@gmail.com', '+62-21-72792263', 'HIMPUNAN PROFESI', 'https://hathi.id/', 'JAKARTA SELATAN', 'JAKARTA'),
+(26, 'PT. PUTRA BAJA DELI', NULL, 'Wisma ADR Lt 5 Jl Pluit Raya 1 no 1, Jakarta Utara, DKI Jakarta 14440', NULL, NULL, 'PRODUK BAJA', 'www.putrabajadeli.com', 'SUMATERA UTARA', 'MEDAN'),
+(27, 'IKATAN AHLI INFORMATIKA INDONESIA', NULL, 'Jalan Jati Padang Raya No. 41 Jati Padang Pasar Minggu Jakarta Selatan Kode Pos 12540', 'siswantodppiaii@gmail.com', '+62 87767275025 (WA Only)', 'PROFESI', 'https://iaii.or.id/', 'JAKARTA SELATAN', 'JAKARTA'),
+(28, 'PEMERINTAH NAGARI KAMANG HILIA', NULL, NULL, NULL, NULL, 'PEMERINTAHAN', NULL, 'SUMATERA BARAT', 'AGAM'),
+(29, 'PT KURNIA ABADI PADANG', NULL, NULL, NULL, NULL, 'AKSESORIS LISTRIK', NULL, 'SUMATERA BARAT', 'PADANG'),
+(30, 'NATIONAL YUNLIN UNIVERSITY OF SCIENCE AND TECHNOLOGY', NULL, '123 University Road, Section 3,Douliou, Yunlin 64002, Taiwan, R.O.C.', NULL, '886-5-534-2601 ', 'PENDIDIKAN', 'https://eng.yuntech.edu.tw/', 'TAIWAN', 'TAIWAN'),
+(31, 'POLITEKNIK SULTAN MIZAN ZAINAL ABIDIN', NULL, 'Politeknik Sultan Mizan Zainal Abidin (PSMZA), KM 08 Jalan Paka, 23000 Dungun, Terengganu Darul Iman', 'webmaster@psmza.edu.my', '09-8400800', 'PENDIDIKAN', 'https://psmza.mypolycc.edu.my/', 'MALAYSIA', 'TERENGGANU'),
+(32, 'PT HALUAN CYBER MEDIA', NULL, 'KOMPLEK BANDARA TABING LANUD- KOTA PADANG', NULL, '987790 or 0813 7283 8945', 'MEDIA ONLINE', 'https://use.infobelpro.com/indonesia/en/businessdetails/ID/0742135390', 'SUMATERA BARAT', 'PADANG'),
+(33, 'CHANGZHOU INSTITUTE OF INDUSTRIAL TECHNOLOGY (CHILI)', NULL, 'C1604 Xinyinzuo Building, Luohu, Shenzhen', 'contact@isac.org.cn', '+86-180-4242-4161', 'PENDIDIKAN', 'https://www.isacteach.com/university/changzhou-institute-of-industry-technology/', 'CHINA', 'JIANGSU SHENG'),
+(34, 'CHANGZHOU VOCATIONAL INSTITUTE OF ENGINEERING TECHNOLOGY', NULL, 'C1604 Xinyinzuo Building, Luohu, Shenzhen', 'contact@isac.org.cn', '+86-180-4242-4161', 'PENDIDIKAN', 'https://www.isacteach.com/university/changzhou-institute-of-industry-technology/', 'CHINA', 'JIANGSU SHENG'),
+(35, 'CHANGZHOU VOCATIONAL INSTITUTE OF MECHATRONIC TECHNOLOGY', NULL, 'No. 26 Mingxin Middle Road, Wujin District, Changzhou City, Jiangsu Province, China', NULL, '+8613632437050 (Whatsapp/Wechat/Viber/IMO)', 'PENDIDIKAN', 'https://www.digiedupro.com/changzhou-institute-of-mechatronic-technology/', 'CHINA', 'JIANGSU SHENG'),
+(36, 'POLITEKNIK MUADZAM SHAH (PMS)', NULL, 'Politeknik Muadzam Shah, Lebuhraya Tun Abdul Razak, 26700 Muadzam Shah, Pahang Darul Makmur.', 'webmasterpms@pms.edu.my', '09 450 2005/ 2006 /2007', 'PENDIDIKAN', 'https://pms.mypolycc.edu.my/', 'MALAYSIA', 'PAHANG'),
+(37, 'NATIONAL KAOHSIUNG UNIVERSITY OF SCIENCE AND TECHNOLOGY.', NULL, 'No.1, University Rd., Yanchao Dist., Kaohsiung City 824005, Taiwan', 'qaoffice01@nkust.edu.tw', NULL, 'PENDIDIKAN', 'https://eng.nkust.edu.tw/', 'TAIWAN', 'KAOHSIUNG CITY'),
+(39, 'MANAGEMENT AND SCIENCE UNIVERSITY (MSU)', '', 'Management and Science University DU019(B)\r\nUniversity Drive, Off Persiaran Olahraga,\r\nSection 13, 40100 Shah Alam,\r\nSelangor Darul Ehsan, Malaysia', '', '(603) 55216868', 'PENDIDIKAN', 'https://www.msu.edu.my/', 'MALAYSIA', 'MALAYSIA');
 
 -- --------------------------------------------------------
 
@@ -101,14 +108,14 @@ INSERT INTO `tb_mitra` (`idMitra`, `namaInstansi`, `namaPimpinan`, `alamatMitra`
 CREATE TABLE `tb_mou_moa` (
   `idMouMoa` int NOT NULL,
   `nomorMouMoa` varchar(30) DEFAULT NULL,
-  `judul_kerjasama` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `judul_kerjasama` varchar(50) NOT NULL,
   `jenisKerjasama` enum('mou','moa') DEFAULT NULL,
   `jangkaWaktu` varchar(20) DEFAULT NULL,
   `awalKerjasama` date DEFAULT NULL,
   `akhirKerjasama` date DEFAULT NULL,
   `tindakan` varchar(45) DEFAULT NULL,
-  `jurusan` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `topik_kerjasama` varchar(50) DEFAULT NULL,
+  `jurusan` varchar(255) DEFAULT NULL,
+  `topik_kerjasama` varchar(90) DEFAULT NULL,
   `fileDokumen` varchar(255) DEFAULT NULL,
   `mitra_idMitra` int NOT NULL,
   `user_idAkun` int NOT NULL,
@@ -120,19 +127,11 @@ CREATE TABLE `tb_mou_moa` (
 --
 
 INSERT INTO `tb_mou_moa` (`idMouMoa`, `nomorMouMoa`, `judul_kerjasama`, `jenisKerjasama`, `jangkaWaktu`, `awalKerjasama`, `akhirKerjasama`, `tindakan`, `jurusan`, `topik_kerjasama`, `fileDokumen`, `mitra_idMitra`, `user_idAkun`, `mailing`) VALUES
-(14, '8092376852746', 'PPT', 'moa', '16', '2024-12-09', '2040-12-31', '', 'General', 'ABCD', '6757083153c4c.docx', 4, 2, 'belum'),
-(15, 'b 467bu23cv2W', 'GUS', 'mou', '4', '2024-12-10', '2028-12-16', '', 'Teknik Sipil,Teknik Elektro,Administrasi Niaga', 'EFGH', '6757c1517b569.xlsx', 5, 2, 'belum'),
-(16, '3644v2', 'POP', 'mou', '0', '2024-12-10', '2024-12-13', '', 'General', 'HIJK', '6757c4dbbabd2.docx', 18, 2, 'sudah'),
-(17, 'sdgsf', 'OOT', 'mou', '2', '2024-12-10', '2026-12-31', '', 'General', 'IJKL', '6757ce854f30c.jpg', 4, 2, 'belum'),
-(18, 'uj89', 'SIGMA', 'mou', '1', '2023-01-10', '2024-12-10', '', 'Teknik Mesin,Teknik Elektro', 'GEAG', '6757dda154189.docx', 18, 2, 'belum'),
-(19, '45tgf', 'LIGMA', 'mou', '1', '2023-02-10', '2024-12-10', '', 'General', 'GRWS', '6757dde65e81a.docx', 24, 2, 'belum'),
-(20, '356y', 'ROW', 'mou', '2', '2022-01-10', '2024-12-10', '', 'General', 'NUIGES', '6757de2567393.png', 7, 2, 'belum'),
-(21, 'enrthGB', 'CONS', 'mou', '0', '2024-12-10', '2024-12-10', '', 'General', 'NTSRT', '6757de520f771.txt', 5, 2, 'belum'),
-(22, '6565sgf322', 'IO', 'mou', '4', '2024-12-10', '2028-12-10', '', 'Teknik Sipil,Administrasi Niaga', 'ABCD', '675824554b242.png', 13, 2, 'belum'),
-(23, '534', 'QWERTY', 'moa', '2', '2022-01-10', '2024-12-10', '', 'Teknologi Informasi,Teknik Mesin', 'OYO', '67582fbde498b.jpg', 19, 1, 'belum'),
-(24, 'n9', 'VUE', 'moa', '3', '2022-01-01', '2025-01-01', '', 'Teknik Mesin,Teknik Sipil', 'JLFD', '675830ee124d6.jpg', 9, 1, 'sudah'),
-(25, '536h', 'WYT', 'moa', '4', '2023-01-10', '2027-12-10', '', 'General', 'GBUIRS', '6758312c8c66e.jpg', 10, 1, 'belum'),
-(26, 'h65', 'KKK', 'mou', '1', '2024-12-12', '2026-06-25', '', 'General', 'JEKEL', '675adef1cc8bf.jpg', 13, 1, 'belum');
+(9, '890/13/TB-A/2019', 'PENGABDIAN MASYARAKAT', 'mou', '2', '2019-04-05', '2021-04-05', '', 'General', 'PENGABDIAN MASYARAKAT', '6764de4b10716.pdf', 1, 2, 'belum'),
+(10, '1107/PL9/KS/2019', 'PENGABDIAN MASYARAKAT', 'moa', '3', '2019-01-25', '2022-01-25', '', 'General', 'PENGABDIAN MASYARAKAT', '676511e02a245.pdf', 2, 2, 'belum'),
+(11, '1632/PL9/KS/2019', 'PENGABDIAN MASYARAKAT', 'moa', '2', '2019-02-18', '2021-02-18', '', 'General', 'PENGABDIAN MASYARAKAT', '676512b09fb18.pdf', 3, 2, 'belum'),
+(12, '1825/PL9/KS/2019', 'PENDIDIKAN DAN PENELITIAN', 'mou', '5', '2019-02-27', '2024-02-27', '', 'General', 'PENDIDIKAN DAN PENELITIAN', '6765133b8616a.pdf', 4, 2, 'belum'),
+(13, '2071/PL9/KS/2019', 'TRIDHARMA PERGURUAN TINGGI', 'mou', '1', '2019-03-14', '2020-03-14', '', 'General', 'TRIDHARMA PERGURUAN TINGGI', '676513a8a6e83.pdf', 5, 2, 'belum');
 
 -- --------------------------------------------------------
 
@@ -143,7 +142,7 @@ INSERT INTO `tb_mou_moa` (`idMouMoa`, `nomorMouMoa`, `judul_kerjasama`, `jenisKe
 CREATE TABLE `tb_user` (
   `idAkun` int NOT NULL,
   `namaUser` varchar(50) DEFAULT NULL,
-  `emailUser` varchar(30) DEFAULT NULL,
+  `emailUser` varchar(90) DEFAULT NULL,
   `username` varchar(50) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `role` enum('super admin','admin','jurusan','mitra') CHARACTER SET big5 COLLATE big5_chinese_ci DEFAULT NULL
@@ -166,13 +165,13 @@ INSERT INTO `tb_user` (`idAkun`, `namaUser`, `emailUser`, `username`, `password`
 
 CREATE TABLE `tb_usulan_kerjasama` (
   `idUsulan` int NOT NULL,
-  `namaInstansi` varchar(50) DEFAULT NULL,
-  `alamat` varchar(50) DEFAULT NULL,
+  `namaInstansi` varchar(70) DEFAULT NULL,
+  `alamat` varchar(200) DEFAULT NULL,
   `namaPenandaTangan` varchar(50) DEFAULT NULL,
   `namaJabatan` varchar(50) DEFAULT NULL,
-  `namaKontakPerson` varchar(50) DEFAULT NULL,
-  `noKontak` varchar(40) DEFAULT NULL,
-  `emailUsulan` varchar(50) DEFAULT NULL,
+  `namaKontakPerson` varchar(70) DEFAULT NULL,
+  `noKontak` varchar(90) DEFAULT NULL,
+  `emailUsulan` varchar(90) DEFAULT NULL,
   `dokumenUsulan` varchar(255) DEFAULT NULL,
   `waktu` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
@@ -182,8 +181,7 @@ CREATE TABLE `tb_usulan_kerjasama` (
 --
 
 INSERT INTO `tb_usulan_kerjasama` (`idUsulan`, `namaInstansi`, `alamat`, `namaPenandaTangan`, `namaJabatan`, `namaKontakPerson`, `noKontak`, `emailUsulan`, `dokumenUsulan`, `waktu`) VALUES
-(1, 'semen padang', 'padang', 'budi', 'president', '08123456', '0u20 t', 'jsg@gmail.com', NULL, '2024-12-10'),
-(10, 'ABCD', 'Padang', 'Ahmad', 'Vice President', 'IJKL', 'EFGH', 'haikala0010@gmail.com', '67588402be778.jpg', '2024-12-11');
+(2, 'genomia', 'padang', 'genomia', 'mahasiswa', '938483984', '082828822', 'genommia@gmail.com', '677b520e913ee.docx', '2025-01-06');
 
 --
 -- Indexes for dumped tables
@@ -230,19 +228,19 @@ ALTER TABLE `tb_usulan_kerjasama`
 -- AUTO_INCREMENT for table `tb_kegiatan_kerjasama`
 --
 ALTER TABLE `tb_kegiatan_kerjasama`
-  MODIFY `idKegiatan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `idKegiatan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tb_mitra`
 --
 ALTER TABLE `tb_mitra`
-  MODIFY `idMitra` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `idMitra` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `tb_mou_moa`
 --
 ALTER TABLE `tb_mou_moa`
-  MODIFY `idMouMoa` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `idMouMoa` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tb_user`
@@ -254,7 +252,7 @@ ALTER TABLE `tb_user`
 -- AUTO_INCREMENT for table `tb_usulan_kerjasama`
 --
 ALTER TABLE `tb_usulan_kerjasama`
-  MODIFY `idUsulan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `idUsulan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
